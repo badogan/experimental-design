@@ -15,7 +15,7 @@ import API from './API'
   let P3 = '&radius=1500'
   // let P4 = '&type=restaurant'
   let P5 = '&keyword=pub'
-  let P6 = '&key=AIzaSyC_8LatciKA_MNCsHGgw97Cupja3kctAXA'
+  let P6 = `&key=${process.env.REACT_APP_KEY}`
   let P7 = '&sensor=false'
 
   let url = P1 + P2 + P3 + P5 + P6 + P7
@@ -27,7 +27,7 @@ class App extends React.Component {
     lookUpAPostCodeData: {},
     getNearestPostCodeData: {},
     getDistanceMatrixData: {},
-    showOrNoShow: false
+    showOrNoShow: true
   }
 
   // testDistanceMatrix = () =>{
@@ -63,23 +63,23 @@ class App extends React.Component {
     //   this.setState({placesSampleData})
     // })
     // PLACES STARTS HERE ++++++++++++++++++++++++
-    // let request = {
-    //   location: {
-    //     lat: RG109NY_latitude,
-    //     lng: RG109NY_longitude
-    //   },
-    //   radius: 1500,
-    //   keyword: 'pub'
-    // };
+    let request = {
+      location: {
+        lat: RG109NY_latitude,
+        lng: RG109NY_longitude
+      },
+      radius: 1500,
+      keyword: 'pub'
+    };
   
-    // let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
+    let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
     
-    // service.nearbySearch(request, (results, status) => {
-    //   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-    //     this.setState({placesSampleData:results})
-    // //     // SAMPLE LOGIC: window.history.pushState(null, '', `/options/${results[0].place_id}/${results[1].place_id}/${results[2].place_id}`)
-    //     } 
-    //   });
+    service.nearbySearch(request, (results, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        this.setState({placesSampleData:results})
+    //     // SAMPLE LOGIC: window.history.pushState(null, '', `/options/${results[0].place_id}/${results[1].place_id}/${results[2].place_id}`)
+        } 
+      });
       // PLACES FINISHES HERE ++++++++++++++++++++++++
       // DISTANCE MATRIX STARTS HERE
       let origin1 = new window.google.maps.LatLng(RG109NY_latitude,RG109NY_longitude)
@@ -105,8 +105,8 @@ class App extends React.Component {
       
       // DISTANCE MATRIX FINISHES HERE
   // API.getPlaces(request).then(results=>this.setState({placesSampleData:results}))
-  // API.lookUpAPostCode('RG109NY').then(data=>this.setState({lookUpAPostCodeData:data.result}))
-  // API.getNearestPostCode(RG109NY_longitude,RG109NY_latitude).then(data=>this.setState({getNearestPostCodeData:data.result}))
+  API.lookUpAPostCode('RG109NY').then(data=>this.setState({lookUpAPostCodeData:data.result}))
+  API.getNearestPostCode(RG109NY_longitude,RG109NY_latitude).then(data=>this.setState({getNearestPostCodeData:data.result}))
   }
 
 
