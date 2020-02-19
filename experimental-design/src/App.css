@@ -31,12 +31,14 @@ body {
   flex-direction: column;
 }
 
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
   height: 10vh;
 }
 
+/* Presearch Page */
 .presearch-container {
   display: flex;
   flex-direction: column;
@@ -100,6 +102,13 @@ body {
 
 .button-magic-formatting {
   border:0.1em solid green;
+}
+/* Searching Page */
+.presearch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* =================================== */

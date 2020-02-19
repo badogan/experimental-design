@@ -5,6 +5,7 @@ import API from './API'
 import Card from './components/Card'
 import ExtractParamsStep1 from './components/ExtractParamsStep1';
 import PreSearchPage from './pages/PreSearchPage'
+import SearchingPage from './pages/SearchingPage'
 
   // Long lat for RG109NY
   const RG109NY_longitude = -0.867849
@@ -27,10 +28,11 @@ import PreSearchPage from './pages/PreSearchPage'
 class App extends React.Component {
 
   state = {
-    // phasePreSearch: true, WHAT TODO HERE?
     presearchEnteredPostcodes: [],
     presearchPlaceType: 'Pub',
     presearchRadioCar: true,
+    seachingInitiated: false,
+    // 
     placesSampleData: [],
     lookUpAPostCodeData: {},
     getNearestPostCodeData: {},
@@ -40,6 +42,8 @@ class App extends React.Component {
     showCards: false,
     receivedParams: null,
   }
+
+  initiateSearching = () => this.setState({seachingInitiated:true})
 
   addPostcode = (postcode) => {
     if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) {return {error: true, message: 'Postcode already entered'}}
@@ -210,7 +214,7 @@ class App extends React.Component {
             <h4>Meet In The Middle</h4>
           </div>
           <div className="presearch-container wrapper">
-            <PreSearchPage 
+            {!this.state.seachingInitiated && <PreSearchPage 
               content={API.contentForEncouragingText()} //EncouragingText
               presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
               deletePostcode={this.deletePostcode}
@@ -218,8 +222,13 @@ class App extends React.Component {
               handleRadioSelection={this.handleRadioSelection}
               stateOfCar={this.state.presearchRadioCar}
               handlePlaceTypeSelection={this.handlePlaceTypeSelection}
-            />
+              initiateSearching={this.initiateSearching}
+            />}
+            <div className="searching-container wrapper">
+              {this.state.seachingInitiated && <SearchingPage/>}
+            </div>
           </div>
+
       </div>
       <Switch>
         <Route path="/:id" children={<ExtractParamsStep1 updateReceivedParams={this.updateReceivedParams}/>} />

@@ -5,10 +5,11 @@ import PostcodeCard from '../components/PostcodeCard'
 import PostcodeInput from '../components/PostcodeInput'
 import TravelModeRadioButtons from '../components/TravelModeRadioButtons'
 import PlaceTypesDropDown from '../components/PlaceTypesDropDown'
+import SearchInitiation from '../components/SearchInitiation'
 
 export default class PreSearchPage extends React.Component {
     render(){
-        const {content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection } = this.props
+        const {content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection, initiateSearching } = this.props
         return(
             <React.Fragment>
                 <div className="encourage-text">
@@ -29,7 +30,7 @@ export default class PreSearchPage extends React.Component {
                         : null}
                 </div>
                 <div className="buttons-add-and-magic">
-                    <button className="button-magic-formatting">Magic button</button>
+                    <SearchInitiation initiateSearching={initiateSearching}/>
                 </div>
             </React.Fragment>
         )
