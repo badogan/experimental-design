@@ -4,11 +4,7 @@ import './App.css';
 import API from './API'
 import Card from './components/Card'
 import ExtractParamsStep1 from './components/ExtractParamsStep1';
-import EncouragingText from './components/EncouragingText'
-import PostcodeInput from './components/PostcodeInput'
-import PostcodeCard from './components/PostcodeCard'
-import PlaceTypesDropDown from './components/PlaceTypesDropDown'
-import TravelModeRadioButtons from './components/TravelModeRadioButtons'
+import PreSearchPage from './pages/PreSearchPage'
 
   // Long lat for RG109NY
   const RG109NY_longitude = -0.867849
@@ -46,9 +42,9 @@ class App extends React.Component {
   }
 
   addPostcode = (postcode) => {
-    if (this.state.presearchEnteredPostcodes.includes(postcode)) {return {error: true, message: 'Postcode already entered'}}
+    if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) {return {error: true, message: 'Postcode already entered'}}
     else {
-    this.setState({presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode]});
+    this.setState({presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()]});
     return {error:false}
     }
   }
@@ -214,23 +210,15 @@ class App extends React.Component {
             <h4>Meet In The Middle</h4>
           </div>
           <div className="presearch-container wrapper">
-            <div className="encourage-text">
-              <EncouragingText content={API.contentForEncouragingText()} />
-            </div>
-            <div className="postcode-cards wrapper">
-              {this.state.presearchEnteredPostcodes.map((postcode,index)=><PostcodeCard key={index} data={postcode} deletePostcode={this.deletePostcode}/>)}
-            </div>
-            <div className="postcode-entry">
-              <PostcodeInput addPostcode={this.addPostcode}/>
-            </div>
-            <div className="travel-mode-and-place-type-selector wrapper">
-              {this.state.presearchEnteredPostcodes.length>1 ? <TravelModeRadioButtons handleRadioSelection={this.handleRadioSelection} stateOfCar={this.state.presearchRadioCar}/> : null}
-              {this.state.presearchEnteredPostcodes.length>1 ? <PlaceTypesDropDown handlePlaceTypeSelection={this.handlePlaceTypeSelection}/> : null}
-            </div>
-            <div className="buttons-add-and-magic">
-              <button className="button-magic-formatting">Magic button</button>
-            </div>
-            
+            <PreSearchPage 
+              content={API.contentForEncouragingText()} //EncouragingText
+              presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
+              deletePostcode={this.deletePostcode}
+              addPostcode={this.addPostcode}
+              handleRadioSelection={this.handleRadioSelection}
+              stateOfCar={this.state.presearchRadioCar}
+              handlePlaceTypeSelection={this.handlePlaceTypeSelection}
+            />
           </div>
       </div>
       <Switch>
