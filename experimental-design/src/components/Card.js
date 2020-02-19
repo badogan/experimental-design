@@ -20,7 +20,7 @@ class Card extends React.Component {
                 <br/><br/><br/>
                 <a href={citymapperLinkPre + latitude + cityMapperLinkMid + longitude}>CityMapper Link</a>
                 <br/><br/><br/>
-                <img src={this.props.place.photos[0].getUrl({maxHeight:60})} />
+                <img alt='' src={this.props.place.photos[0].getUrl({maxHeight:60})} />
 
             </div>
         )

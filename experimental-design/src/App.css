@@ -1,8 +1,109 @@
-.App {
-  text-align: center;
+/* Global resets */
+
+*,
+*::before,
+*::after {
+  margin: 5;
+  padding: 3;
+  box-sizing: inherit
 }
 
-.App-logo {
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: "Montserrat", "sans-serif";
+}
+
+/* Wrapper */
+
+.wrapper {
+  margin: 0 auto;
+  width: 95%;
+  max-width: 960px;
+}
+
+.App {
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+}
+
+.presearch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.encourage-text {
+  color: blue;
+}
+
+.postcode-cards{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.each-card-div-style {
+  border-color: red;
+}
+
+.postcode-entry {
+  display: flex;
+}
+
+.postcode-add-button {
+  border:0.1em solid red;
+}
+
+.travel-mode-and-place-type-selector {
+  display: flex;
+  justify-content: center;
+}
+
+.travel-mode-main {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.travel-mode-public-transport {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.travel-mode-car {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-add-and-magic {
+  display: flex;
+  align-items: center;
+}
+
+.button-add-formatting {
+  border:0.1em solid red;
+}
+
+.button-magic-formatting {
+  border:0.1em solid green;
+}
+
+/* =================================== */
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +136,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

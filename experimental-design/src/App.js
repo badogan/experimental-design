@@ -4,6 +4,11 @@ import './App.css';
 import API from './API'
 import Card from './components/Card'
 import ExtractParamsStep1 from './components/ExtractParamsStep1';
+import EncouragingText from './components/EncouragingText'
+import PostcodeInput from './components/PostcodeInput'
+import PostcodeCard from './components/PostcodeCard'
+import PlaceTypesDropDown from './components/PlaceTypesDropDown'
+import TravelModeRadioButtons from './components/TravelModeRadioButtons'
 
   // Long lat for RG109NY
   const RG109NY_longitude = -0.867849
@@ -26,7 +31,10 @@ import ExtractParamsStep1 from './components/ExtractParamsStep1';
 class App extends React.Component {
 
   state = {
-    totalLat: 0,
+    // phasePreSearch: true, WHAT TODO HERE?
+    presearchEnteredPostcodes: [],
+    presearchPlaceType: 'Pub',
+    presearchRadioCar: true,
     placesSampleData: [],
     lookUpAPostCodeData: {},
     getNearestPostCodeData: {},
@@ -34,8 +42,22 @@ class App extends React.Component {
     showOrNoShow: false,
     target3Places: [],
     showCards: false,
-    receivedParams: null
+    receivedParams: null,
   }
+
+  addPostcode = (postcode) => {
+    if (this.state.presearchEnteredPostcodes.includes(postcode)) {return {error: true, message: 'Postcode already entered'}}
+    else {
+    this.setState({presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode]});
+    return {error:false}
+    }
+  }
+
+  deletePostcode = (postcode) => this.setState({presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes].filter(object=>object!==postcode)})
+
+  handlePlaceTypeSelection = (selection) => this.setState({presearchPlaceType:selection})
+
+  handleRadioSelection = () => this.setState({presearchRadioCar: !this.state.presearchRadioCar})
 
   componentDidMount(){
     this.state.showOrNoShow && this.testcode()
@@ -131,8 +153,6 @@ class App extends React.Component {
       location: {
         lat: RG109NY_latitude,
         lng: RG109NY_longitude
-        // lat: totalLatitude/this.state.enteredPostcodes.length,
-        // lng: totalLongitude/this.state.enteredPostcodes.length
       },
       radius: 1500,
       keyword: 'pub'
@@ -179,16 +199,39 @@ class App extends React.Component {
     return (
       <Router>
       <div className="App">
-        
-        <button onClick={()=>this.setInitialStates()}>Decide on the 3 and get initial states for the 3 targeted items</button>
-        <br/><br/>
-        <button onClick={()=>this.getDetailsAndUpdateStateForTarget3()}>Get the details of the 3 </button>
-        <br/><br/>
-        <button onClick={()=>this.buildCards()}> Show the photo or photoS!</button>
-        {this.state.showCards && this.state.target3Places.map(object=><Card key={object.place_id} place={object}/>)}
-        <br/><br/>
-        {this.state.receivedParams && <h4>Received Params - To be regexed: {this.state.receivedParams}</h4>}
-
+            {/* BELOW WAS TEST CODE */}
+            {/* <button onClick={()=>this.setInitialStates()}>Decide on the 3 and get initial states for the 3 targeted items</button>
+            <br/><br/>
+            <button onClick={()=>this.getDetailsAndUpdateStateForTarget3()}>Get the details of the 3 </button>
+            <br/><br/>
+            <button onClick={()=>this.buildCards()}> Show the photo or photoS!</button>
+            {this.state.showCards && this.state.target3Places.map(object=><Card key={object.place_id} place={object}/>)}
+            <br/><br/>
+            {this.state.receivedParams && <h4>Received Params - To be regexed: {this.state.receivedParams}</h4>} */}
+            {/* ABOVE WAS TEST CODE */}
+          <div className="header">
+            <h4>burger menu OR logo</h4>
+            <h4>Meet In The Middle</h4>
+          </div>
+          <div className="presearch-container wrapper">
+            <div className="encourage-text">
+              <EncouragingText content={API.contentForEncouragingText()} />
+            </div>
+            <div className="postcode-cards wrapper">
+              {this.state.presearchEnteredPostcodes.map((postcode,index)=><PostcodeCard key={index} data={postcode} deletePostcode={this.deletePostcode}/>)}
+            </div>
+            <div className="postcode-entry">
+              <PostcodeInput addPostcode={this.addPostcode}/>
+            </div>
+            <div className="travel-mode-and-place-type-selector wrapper">
+              {this.state.presearchEnteredPostcodes.length>1 ? <TravelModeRadioButtons handleRadioSelection={this.handleRadioSelection} stateOfCar={this.state.presearchRadioCar}/> : null}
+              {this.state.presearchEnteredPostcodes.length>1 ? <PlaceTypesDropDown handlePlaceTypeSelection={this.handlePlaceTypeSelection}/> : null}
+            </div>
+            <div className="buttons-add-and-magic">
+              <button className="button-magic-formatting">Magic button</button>
+            </div>
+            
+          </div>
       </div>
       <Switch>
         <Route path="/:id" children={<ExtractParamsStep1 updateReceivedParams={this.updateReceivedParams}/>} />
