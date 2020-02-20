@@ -32,6 +32,7 @@ class App extends React.Component {
     presearchPlaceType: 'Pub',
     presearchRadioCar: true,
     seachingInitiated: false,
+    searchingMidPoint: null,
     // 
     placesSampleData: [],
     lookUpAPostCodeData: {},
@@ -42,9 +43,15 @@ class App extends React.Component {
     showCards: false,
     receivedParams: null,
   }
-
+//// START: Searching Related
   initiateSearching = () => this.setState({seachingInitiated:true})
+  findTheMiddlePoint = () => {
+    let foundMidPoint = API.findMiddleLatLong(this.state.presearchEnteredPostcodes,'v1')
+    this.setState({searchingMidPoint:foundMidPoint})
+  }
+//// END: Searching Related
 
+//// START: preSearch Related
   addPostcode = (postcode) => {
     if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) {return {error: true, message: 'Postcode already entered'}}
     else {
@@ -58,6 +65,7 @@ class App extends React.Component {
   handlePlaceTypeSelection = (selection) => this.setState({presearchPlaceType:selection})
 
   handleRadioSelection = () => this.setState({presearchRadioCar: !this.state.presearchRadioCar})
+//// END: preSearch Related
 
   componentDidMount(){
     this.state.showOrNoShow && this.testcode()
@@ -209,9 +217,16 @@ class App extends React.Component {
             <br/><br/>
             {this.state.receivedParams && <h4>Received Params - To be regexed: {this.state.receivedParams}</h4>} */}
             {/* ABOVE WAS TEST CODE */}
-          <div className="header">
-            <h4>burger menu OR logo</h4>
-            <h4>Meet In The Middle</h4>
+          <div className="header wrapper">
+            <div>
+              <h5>________</h5>
+              <h5>________</h5>
+              <h5>________</h5>
+            </div>
+            <div>
+              <br/>
+              <h1>Meet Me In The Middle</h1>
+            </div>
           </div>
           <div className="presearch-container wrapper">
             {!this.state.seachingInitiated && <PreSearchPage 
@@ -225,7 +240,7 @@ class App extends React.Component {
               initiateSearching={this.initiateSearching}
             />}
             <div className="searching-container wrapper">
-              {this.state.seachingInitiated && <SearchingPage/>}
+              {this.state.seachingInitiated && <SearchingPage findTheMiddlePoint={this.findTheMiddlePoint}/>}
             </div>
           </div>
 

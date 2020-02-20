@@ -12,14 +12,14 @@ export default class PreSearchPage extends React.Component {
         const {content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection, initiateSearching } = this.props
         return(
             <React.Fragment>
-                <div className="encourage-text">
+                <div className="encourage-text wrapper">
                     <EncouragingText content={content} />
                 </div>
                 <div className="postcode-cards wrapper">
                     {presearchEnteredPostcodes.map((postcode,index)=><PostcodeCard key={index} data={postcode} deletePostcode={deletePostcode}/>)}
                 </div>
                 <div className="postcode-entry">
-                    <PostcodeInput addPostcode={addPostcode}/>
+                    <PostcodeInput presearchEnteredPostcodes={presearchEnteredPostcodes} addPostcode={addPostcode}/>
                 </div>
                 <div className="travel-mode-and-place-type-selector wrapper">
                     {presearchEnteredPostcodes.length>1 
@@ -30,7 +30,9 @@ export default class PreSearchPage extends React.Component {
                         : null}
                 </div>
                 <div className="buttons-add-and-magic">
-                    <SearchInitiation initiateSearching={initiateSearching}/>
+                    {presearchEnteredPostcodes.length>1 
+                        ? <SearchInitiation initiateSearching={initiateSearching}/> 
+                        : null}
                 </div>
             </React.Fragment>
         )

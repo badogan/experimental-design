@@ -5,8 +5,9 @@ import ShowMessage from '../components/ShowMessage'
 export default class SearchingPage extends React.Component {
 
     componentDidMount(){
-        console.log('inside searching page' )
+        this.props.findTheMiddlePoint()
     }
+
     render(){
         return(
             <React.Fragment>

@@ -39,7 +39,20 @@ const searchingMessages = () => [
   'Shortlisting places ...',
   'Generating links for WhatsApp, CityMapper, Google Maps ...'
 ]
+const findMiddleLatLong = (arrayOfPostcodes,algoVersion) => {
+  if (algoVersion === 'v1') {
+    //get the long lat for each postcode
+    let total = { latitude:0 , longitude:0 }
+    arrayOfPostcodes.map(postcode=>{
+      lookUpAPostCode(postcode).then(data=>{
+        total.longitude += (data.result.longitude / arrayOfPostcodes.length)
+        total.latitude += (data.result.latitude / arrayOfPostcodes.length)
+      })
+    })
+    return total
+  } else {return ({result: null, error: 'version incorrect'})}
+}
 
 // FUNCTIONAL APIs ABOVE
 
-export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages }
+export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages,findMiddleLatLong }
