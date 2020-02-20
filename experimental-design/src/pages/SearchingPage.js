@@ -5,7 +5,7 @@ import ShowMessage from '../components/ShowMessage'
 export default class SearchingPage extends React.Component {
 
     componentDidMount(){
-        this.props.findTheMiddlePoint()
+        this.props.findAllLongLat()
     }
 
     render(){

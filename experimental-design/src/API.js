@@ -29,7 +29,7 @@ const extractPostCode = (address_components) => {return address_components.find(
 
 const getPlaces = (requestObject) => getPlacesCoreCode(requestObject)
 const lookUpAPostCode = (postcode) => getSimple(`${lookUpAPostCodeURL}${postcode}`)
-const getNearestPostCode = (lon,lat) => getSimple(`${getNearestPostCodeURL}lon=${lon}&lat=${lat}`)
+const getNearestPostCode = (object) => getSimple(`${getNearestPostCodeURL}lon=${object.longitude}&lat=${object.latitude}`)
 const validatePostCode = (postcode) => getSimple(`${validatePostCodeURL_P1}${postcode}/validate`)
 // FUNCTIONAL - NOT SURE IF THEY NEED TO BE HERE OR IN SOME OTHER API-LIKE STRUCTURE
 const contentForEncouragingText = () => 'Simplicity at its best! Meet with your friends in the middle! Everybody spending approximately the same travel time! No more decisions or browsing tens of possible places ! See magic happening!'
@@ -39,20 +39,7 @@ const searchingMessages = () => [
   'Shortlisting places ...',
   'Generating links for WhatsApp, CityMapper, Google Maps ...'
 ]
-const findMiddleLatLong = (arrayOfPostcodes,algoVersion) => {
-  if (algoVersion === 'v1') {
-    //get the long lat for each postcode
-    let total = { latitude:0 , longitude:0 }
-    arrayOfPostcodes.map(postcode=>{
-      lookUpAPostCode(postcode).then(data=>{
-        total.longitude += (data.result.longitude / arrayOfPostcodes.length)
-        total.latitude += (data.result.latitude / arrayOfPostcodes.length)
-      })
-    })
-    return total
-  } else {return ({result: null, error: 'version incorrect'})}
-}
-
+const findAverage = (number,length) => number/length
 // FUNCTIONAL APIs ABOVE
 
-export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages,findMiddleLatLong }
+export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages,findAverage }

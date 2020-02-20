@@ -32,7 +32,8 @@ class App extends React.Component {
     presearchPlaceType: 'Pub',
     presearchRadioCar: true,
     seachingInitiated: false,
-    searchingMidPoint: null,
+    searchingMidPointLongLat: null,
+    searchingMidPointPostcode: null, //Populated after search process completed only if it is available
     // 
     placesSampleData: [],
     lookUpAPostCodeData: {},
@@ -45,10 +46,47 @@ class App extends React.Component {
   }
 //// START: Searching Related
   initiateSearching = () => this.setState({seachingInitiated:true})
-  findTheMiddlePoint = () => {
-    let foundMidPoint = API.findMiddleLatLong(this.state.presearchEnteredPostcodes,'v1')
-    this.setState({searchingMidPoint:foundMidPoint})
+  findAllLongLat = () => {
+    Promise.all(
+      this.state.presearchEnteredPostcodes.map(postcode=> API.lookUpAPostCode(postcode))
+    )
+    .then((responseForAllPostcodes)=> {
+      let midPointLatitude = 0
+      let midPointLongitude = 0
+      responseForAllPostcodes.map(response=>{
+        midPointLatitude = midPointLatitude + (response.result.latitude / responseForAllPostcodes.length)
+        midPointLongitude = midPointLongitude + (response.result.longitude / responseForAllPostcodes.length)
+      })
+      let midPointObj = {latitude:midPointLatitude,longitude:midPointLongitude}
+      this.setState({ searchingMidPointLongLat:midPointObj })
+      return (midPointObj)
+    })
+    .then(midPointObj=>{
+      return API.getNearestPostCode(midPointObj)
+    }).then(closestPostCodeObject=>{
+      // console.log(closestPostCodeObject.result[0].postcode)
+      if (closestPostCodeObject.status === 200) {
+        if (closestPostCodeObject.result !== null) {
+          this.setState({searchingMidPointPostcode:closestPostCodeObject.result[0].postcode.replace(/ /g,'').toUpperCase()})
+        } else { console.log('no close postcode from postcode.io')}
+      }
+      }) 
+    // .then(value => {
+    //   console.log(value)
+    //   return new Promise((resolve) => setTimeout(resolve, 1000))
+    // })
+    // .then(() => console.log('now this one'))
+
+    // const animators = [1, 2, 3]
+
+    // animators.reduce((promise, animator) => {
+    //   return promise
+    //     .then(() => animator.reveal())
+    // }, Promise.resolve())
   }
+
+  // Promise.race
+  
 //// END: Searching Related
 
 //// START: preSearch Related
@@ -240,7 +278,7 @@ class App extends React.Component {
               initiateSearching={this.initiateSearching}
             />}
             <div className="searching-container wrapper">
-              {this.state.seachingInitiated && <SearchingPage findTheMiddlePoint={this.findTheMiddlePoint}/>}
+              {this.state.seachingInitiated && <SearchingPage findAllLongLat={this.findAllLongLat}/>}
             </div>
           </div>
 
