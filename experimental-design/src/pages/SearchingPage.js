@@ -14,7 +14,7 @@ export default class SearchingPage extends React.Component {
         showStep3: false
     }
 
-    init = () => {
+    componentDidMount() {
         this.doSearchAndHandoverToPostSearch()
     }
 
@@ -113,10 +113,6 @@ export default class SearchingPage extends React.Component {
                 this.props.updateConstructedURL()
             })
         //   END: Shoukld handover to react router, update state clarifying where the link came from - searching or link router
-    }
-
-    componentDidMount() {
-        this.init()
     }
 
     render() {

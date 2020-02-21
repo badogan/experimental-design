@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useParams, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import API from './API'
 import Card from './components/Card'
-// import ExtractParamsStep1 from './components/ExtractParamsStep1';
 import PreSearchPage from './pages/PreSearchPage'
 import SearchingPage from './pages/SearchingPage'
 import PostSearchPage from './pages/PostSearchPage'
@@ -11,19 +10,16 @@ import PostSearchPage from './pages/PostSearchPage'
 class App extends React.Component {
 
   state = {
-    presearchEnteredPostcodes: ['W21HB', 'EC2Y9AG', 'N18XX', 'W127RZ'],
+    presearchEnteredPostcodes: ['W21HB', 'EC2Y9AG', 'N18XX'],
     presearchPlaceType: 'Pub',
     presearchRadioCar: false,
     searchingInitiated: false,
     searchingOriginsArray: [],
     searchingMidPointLongLat: null,
-    searchingMidPointPostcode: null, //Populated after search process completed only if available
+    searchingMidPointPostcode: null, //Populate after search process completed only if available
     searchingDurations: [],
     searchingItemsToPresent: [],
-    searchingConstructedURL: null,
-    // 
-    showOrNoShow: false,
-    receivedParams: null
+    searchingConstructedURL: null
   }
   //// START: Searching Related
   initiateSearching = () => {
@@ -40,8 +36,8 @@ class App extends React.Component {
   }
   updateConstructedURL = () => {
     let url = '/results?'
-    const averageSearchingTime = this.state.searchingDurations.reduce((tot, dur) => tot + dur, 0) / this.state.searchingDurations.length
-    url += `time=${averageSearchingTime}&`
+    const averageDuration = this.state.searchingDurations.reduce((sum, num) => sum + num, 0) / this.state.searchingDurations.length
+    url += `duration=${averageDuration}&`
     url += `postcode=${this.state.searchingMidPointPostcode}&`
     url += `places=${this.state.searchingItemsToPresent.join(',')}`
     this.props.history.push(url)
@@ -86,35 +82,6 @@ class App extends React.Component {
     this.setState({ target3Places: initialStatesArray });
   }
 
-  getDetailsAndUpdateStateForTarget3 = () => {
-    let tempArray = []
-    let default_request_limited = {
-      fields: ['name', 'rating', 'user_ratings_total', 'photo', 'formatted_address', 'address_components', 'international_phone_number', 'website', 'place_id', 'url', 'geometry']
-    }
-    let target3PlacesSummary = [...this.state.target3Places]
-    target3PlacesSummary.map(object => {
-      let request = default_request_limited
-      request.placeId = object.place_id
-      let service = new window.google.maps.places.PlacesService(document.querySelector('#places'))
-      service.getDetails(request, (place, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          place.photosURL = []
-          for (const photo of place.photos) {
-            place.photosURL.push(photo.getUrl({ maxHeight: 300 }))
-          }
-          place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
-          API.lookUpAPostCode(place.postcode).then(object => {
-            place.longitude = object.result.longitude
-            place.latitude = object.result.latitude
-          })
-          tempArray.push(place)
-        } else { console.log(status) }
-      })
-    })
-    this.setState({ target3Places: tempArray })
-    console.log(tempArray)
-  }
-
   render() {
     return (
       <div>
@@ -153,24 +120,34 @@ class App extends React.Component {
                 initiateSearching={this.initiateSearching}
               />
             }} />
-            <div className="searching-container wrapper">
-              <Route path="/search" render={routerProps => {
-                return <SearchingPage
-                  {...routerProps}
-                  updateMidPointLongLat={this.updateMidPointLongLat}
-                  updateMidPointPostcode={this.updateMidPointPostcode}
-                  populateOriginsArray={this.populateOriginsArray}
-                  updateDurations={this.updateDurations}
-                  updateItemsToPresent={this.updateItemsToPresent}
-                  updateConstructedURL={this.updateConstructedURL}
-                  searchingInitiated={this.state.searchingInitiated}
-                  searchingMidPointLongLat={this.state.searchingMidPointLongLat}
-                  searchingOriginsArray={this.state.searchingOriginsArray}
-                  presearchRadioCar={this.state.presearchRadioCar}
-                  presearchPlaceType={this.state.presearchPlaceType}
-                />
-              }} />
-            </div>
+          </div>
+
+          <div className="searching-container wrapper">
+            <Route path="/search" render={routerProps => {
+              return <SearchingPage
+                {...routerProps}
+                updateMidPointLongLat={this.updateMidPointLongLat}
+                updateMidPointPostcode={this.updateMidPointPostcode}
+                populateOriginsArray={this.populateOriginsArray}
+                updateDurations={this.updateDurations}
+                updateItemsToPresent={this.updateItemsToPresent}
+                updateConstructedURL={this.updateConstructedURL}
+                searchingInitiated={this.state.searchingInitiated}
+                searchingMidPointLongLat={this.state.searchingMidPointLongLat}
+                searchingOriginsArray={this.state.searchingOriginsArray}
+                presearchRadioCar={this.state.presearchRadioCar}
+                presearchPlaceType={this.state.presearchPlaceType}
+              />
+            }} />
+          </div>
+          
+          <div className="postsearch-container wrapper">
+            <Route path="/results" render={routerProps => {
+              return <PostSearchPage 
+              {...routerProps}
+              />
+            }} />
+
           </div>
 
         </div>
