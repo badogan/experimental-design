@@ -122,6 +122,39 @@ body {
   align-items: center;
 }
 
+/* PostSearch Page */
+.key-data-comm-group {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border:0.1em solid blue;
+}
+
+.place-cards-all {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border:0.1em solid green;
+}
+
+.PostSearch-Buttons {
+  display:flex;
+  flex-direction: column;
+}
+
+.whatsapp-button {
+  border:0.1em solid red;
+}
+
+.google-maps-button{
+  border:0.1em solid green;
+}
+
+.city-mapper-button {
+  border:0.1em solid purple;
+}
+
+
 /* =================================== */
 /* .App-logo {
   height: 40vmin;

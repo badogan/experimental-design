@@ -10,7 +10,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        this.presentPlacesAndFurtherOptions()
+        false && this.presentPlacesAndFurtherOptions()
     }
 
     presentationDetailsFromQuery = (query) => {
@@ -43,8 +43,10 @@ export default class PostSearchPage extends React.Component {
                         }
                         place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
                         API.lookUpAPostCode(place.postcode).then(object => {
-                            place.longitude = object.result.longitude
-                            place.latitude = object.result.latitude
+                            if (object.status === 200) {
+                                place.longitude = object.result.longitude
+                                place.latitude = object.result.latitude
+                            } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
                         })
                         resolve()
                         console.log(place)
@@ -61,7 +63,20 @@ export default class PostSearchPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h1>I am here</h1>
+                <div className="key-data-comm-group wrapper">
+                    <h3>Approximate Travel Time For Each Person</h3>
+                    <h3>Approximate Postcode In The Middle</h3>
+                </div>
+                <div className="place-cards-all wrapper">
+                    <h4> Place-1  with checkbox</h4>
+                    <h4> Place-2  with checkbox</h4>
+                    <h4> Place-3  with checkbox</h4>
+                </div>
+                <div className="PostSearch-Buttons">
+                    <button className="whatsapp-button">WhatsApp Share</button>
+                    <button className="google-maps-button">Get me there with Google Maps</button>
+                    <button className="city-mapper-button">Get me there with City Mapper</button>
+                </div>
             </React.Fragment>
         )
     }

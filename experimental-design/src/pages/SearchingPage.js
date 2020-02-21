@@ -2,8 +2,6 @@ import React from 'react'
 import API from '../API'
 import ShowMessage from '../components/ShowMessage'
 import Helper from '../Helper'
-// import { BrowserRouter as Router, Route, Switch, useParams, Link, withRouter } from 'react-router-dom';
-
 
 export default class SearchingPage extends React.Component {
 
@@ -108,7 +106,6 @@ export default class SearchingPage extends React.Component {
                 })
             })
             .then(() => {
-                console.log("entering last bit...")
                 this.setState({ showStep3: true })
                 this.props.updateConstructedURL()
             })

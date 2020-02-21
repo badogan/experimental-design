@@ -57,45 +57,10 @@ class App extends React.Component {
   handleRadioSelection = () => this.setState({ presearchRadioCar: !this.state.presearchRadioCar })
   //// END: preSearch Related
 
-  setInitialStates = () => {
-    let initialStatesArray = []
-    this.decideOnThe3ToUse().map(object => {
-      let currentObject = {
-        place_id: object.place_id,
-        name: object.name,
-        rating: object.rating,
-        user_ratings_total: object.user_ratings_total,
-        photo: null,
-        formatted_address: null,
-        // 
-        address_component: null,
-        international_phone_number: null,
-        website: null,
-        url: null,
-        //
-        postcode: null,
-        longitude: null,
-        latitude: null
-      };
-      initialStatesArray.push(currentObject)
-    });
-    this.setState({ target3Places: initialStatesArray });
-  }
-
   render() {
     return (
       <div>
         <div className="App">
-          {/* BELOW WAS TEST CODE */}
-          {/* <button onClick={()=>this.setInitialStates()}>Decide on the 3 and get initial states for the 3 targeted items</button>
-            <br/><br/>
-            <button onClick={()=>this.getDetailsAndUpdateStateForTarget3()}>Get the details of the 3 </button>
-            <br/><br/>
-            <button onClick={()=>this.buildCards()}> Show the photo or photoS!</button>
-            {this.state.showCards && this.state.target3Places.map(object=><Card key={object.place_id} place={object}/>)}
-            <br/><br/>
-            {this.state.receivedParams && <h4>Received Params - To be regexed: {this.state.receivedParams}</h4>} */}
-          {/* ABOVE WAS TEST CODE */}
           <div className="header wrapper">
             <div>
               <h5>________</h5>
