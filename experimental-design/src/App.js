@@ -46,47 +46,8 @@ class App extends React.Component {
   }
 //// START: Searching Related
   initiateSearching = () => this.setState({seachingInitiated:true})
-  findAllLongLat = () => {
-    Promise.all(
-      this.state.presearchEnteredPostcodes.map(postcode=> API.lookUpAPostCode(postcode))
-    )
-    .then((responseForAllPostcodes)=> {
-      let midPointLatitude = 0
-      let midPointLongitude = 0
-      responseForAllPostcodes.map(response=>{
-        midPointLatitude = midPointLatitude + (response.result.latitude / responseForAllPostcodes.length)
-        midPointLongitude = midPointLongitude + (response.result.longitude / responseForAllPostcodes.length)
-      })
-      let midPointObj = {latitude:midPointLatitude,longitude:midPointLongitude}
-      this.setState({ searchingMidPointLongLat:midPointObj })
-      return (midPointObj)
-    })
-    .then(midPointObj=>{
-      return API.getNearestPostCode(midPointObj)
-    }).then(closestPostCodeObject=>{
-      // console.log(closestPostCodeObject.result[0].postcode)
-      if (closestPostCodeObject.status === 200) {
-        if (closestPostCodeObject.result !== null) {
-          this.setState({searchingMidPointPostcode:closestPostCodeObject.result[0].postcode.replace(/ /g,'').toUpperCase()})
-        } else { console.log('no close postcode from postcode.io')}
-      }
-      }) 
-    // .then(value => {
-    //   console.log(value)
-    //   return new Promise((resolve) => setTimeout(resolve, 1000))
-    // })
-    // .then(() => console.log('now this one'))
-
-    // const animators = [1, 2, 3]
-
-    // animators.reduce((promise, animator) => {
-    //   return promise
-    //     .then(() => animator.reveal())
-    // }, Promise.resolve())
-  }
-
-  // Promise.race
-  
+  updateMidPointLongLat = (midPointObj) => this.setState({ searchingMidPointLongLat:midPointObj })
+  updateMidPointPostcode = (postcode) => this.setState({searchingMidPointPostcode:postcode})
 //// END: Searching Related
 
 //// START: preSearch Related
@@ -97,11 +58,8 @@ class App extends React.Component {
     return {error:false}
     }
   }
-
   deletePostcode = (postcode) => this.setState({presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes].filter(object=>object!==postcode)})
-
   handlePlaceTypeSelection = (selection) => this.setState({presearchPlaceType:selection})
-
   handleRadioSelection = () => this.setState({presearchRadioCar: !this.state.presearchRadioCar})
 //// END: preSearch Related
 
@@ -278,7 +236,13 @@ class App extends React.Component {
               initiateSearching={this.initiateSearching}
             />}
             <div className="searching-container wrapper">
-              {this.state.seachingInitiated && <SearchingPage findAllLongLat={this.findAllLongLat}/>}
+              {this.state.seachingInitiated && <SearchingPage 
+              presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
+              updateMidPointLongLat={this.updateMidPointLongLat} 
+              updateMidPointPostcode={this.updateMidPointPostcode}
+              searchingInitiated={this.state.seachingInitiated}
+              searchingMidPointLongLat={this.state.searchingMidPointLongLat}
+              />}
             </div>
           </div>
 

@@ -39,7 +39,6 @@ const searchingMessages = () => [
   'Shortlisting places ...',
   'Generating links for WhatsApp, CityMapper, Google Maps ...'
 ]
-const findAverage = (number,length) => number/length
 // FUNCTIONAL APIs ABOVE
 
-export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages,findAverage }
+export default { getPlaces,lookUpAPostCode,getNearestPostCode,constructPhotoLink,extractPostCode, contentForEncouragingText, validatePostCode, searchingMessages }
