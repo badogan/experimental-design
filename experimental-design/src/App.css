@@ -130,6 +130,13 @@ body {
   border:0.1em solid blue;
 }
 
+.key-data-each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .place-cards-all {
   display:flex;
   flex-direction: row;

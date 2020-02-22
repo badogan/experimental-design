@@ -5,14 +5,32 @@ const SearchingPageMessages = () => [
     'Assessing midpoint postcode ...',
     'Shortlisting places ...',
     'Generating links for WhatsApp, CityMapper, Google Maps ...'
-  ]
+]
+
+const PostSearchPageMessages = () => [
+    'Approximate Travel Time For Each Person',
+    'Approximate Postcode In The Middle'
+]
 
 const decideOnTheItemsToPresent = (allItems) => {
     let maxNumberOfResults = 3
-    let targetGroup = allItems.sort((a,b)=>a.user_ratings_total>b.user_ratings_total ?-1:1).sort((a,b)=>a.rating>b.rating ?-1:1)
+    let targetGroup = allItems.sort((a, b) => a.user_ratings_total > b.user_ratings_total ? -1 : 1).sort((a, b) => a.rating > b.rating ? -1 : 1)
     if (targetGroup.length >= maxNumberOfResults) {
-        return (targetGroup.slice(0,maxNumberOfResults))
-    } else {return targetGroup}
+        return (targetGroup.slice(0, maxNumberOfResults))
+    } else { return targetGroup }
 }
 
-export default { SearchingPageMessages,decideOnTheItemsToPresent }
+const processDuration = (min) => {
+    let h = Math.floor(min / 60)
+    let m = Math.floor(min - h * 60)
+    let message
+    if (h === 0) {
+        message = `${m}min`
+    }
+    else {
+        message = `${h}h ${m}min`
+    }
+    return message
+}
+
+export default { processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

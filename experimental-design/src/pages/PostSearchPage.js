@@ -1,5 +1,7 @@
 import React from 'react'
 import API from '../API'
+import Helper from '../Helper'
+import KeyDataComm from '../components/KeyDataComm'
 
 export default class PostSearchPage extends React.Component {
 
@@ -10,7 +12,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        false && this.presentPlacesAndFurtherOptions()
+        true && this.presentPlacesAndFurtherOptions()
     }
 
     presentationDetailsFromQuery = (query) => {
@@ -64,7 +66,9 @@ export default class PostSearchPage extends React.Component {
         return (
             <React.Fragment>
                 <div className="key-data-comm-group wrapper">
-                    <h3>Approximate Travel Time For Each Person</h3>
+                    <div className="key-data-each wrapper">
+                    <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]}/>
+                    </div>
                     <h3>Approximate Postcode In The Middle</h3>
                 </div>
                 <div className="place-cards-all wrapper">
