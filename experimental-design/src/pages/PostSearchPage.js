@@ -2,17 +2,25 @@ import React from 'react'
 import API from '../API'
 import Helper from '../Helper'
 import KeyDataComm from '../components/KeyDataComm'
+import PlaceCard from '../components/PlaceCard'
 
 export default class PostSearchPage extends React.Component {
 
     state = {
         duration: null,
         postcode: null,
-        places: null
+        places: []
     }
 
     componentDidMount() {
-        true && this.presentPlacesAndFurtherOptions()
+        true && this.putAllTogether()
+    }
+
+    putAllTogether = () => {
+        return new Promise ((resolve)=>{
+            this.presentPlacesAndFurtherOptions()
+            resolve()
+        })
     }
 
     presentationDetailsFromQuery = (query) => {
@@ -28,7 +36,6 @@ export default class PostSearchPage extends React.Component {
             duration: this.presentationDetailsFromQuery(this.props.location.search).duration,
             postcode: this.presentationDetailsFromQuery(this.props.location.search).postcode
         })
-        let tempArray = []
         let default_request_limited = {
             fields: ['name', 'rating', 'user_ratings_total', 'photo', 'formatted_address', 'address_components', 'international_phone_number', 'website', 'place_id', 'url', 'geometry']
         }
@@ -50,14 +57,14 @@ export default class PostSearchPage extends React.Component {
                                 place.latitude = object.result.latitude
                             } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
                         })
+                        this.setState({ 
+                            places: [...this.state.places,place]
+                         })
                         resolve()
-                        console.log(place)
-                        tempArray.push(place)
-                    } else { console.log(status) }
+                        // console.log(place)
+                    } else { console.log("Google PlacesService error (may be) code is...: ",status) }
                 })
-                return tempArray
             })
-            this.setState({ places: tempArray })
         }
         )
     }
@@ -67,14 +74,14 @@ export default class PostSearchPage extends React.Component {
             <React.Fragment>
                 <div className="key-data-comm-group wrapper">
                     <div className="key-data-each wrapper">
-                    <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]}/>
+                        <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]} />
                     </div>
-                    <h3>Approximate Postcode In The Middle</h3>
+                    <div className="key-data-each wrapper">
+                        <KeyDataComm content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} />
+                    </div>
                 </div>
                 <div className="place-cards-all wrapper">
-                    <h4> Place-1  with checkbox</h4>
-                    <h4> Place-2  with checkbox</h4>
-                    <h4> Place-3  with checkbox</h4>
+                    {this.state.places.length!==0 ? this.state.places.map(place => <PlaceCard key={place.place_id} place={place} />) :null}
                 </div>
                 <div className="PostSearch-Buttons">
                     <button className="whatsapp-button">WhatsApp Share</button>

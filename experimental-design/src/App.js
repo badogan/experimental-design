@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 // TODO: ASK TO SAM WHY THIS IS NOT WORKING
   componentDidMount() {
-    true && this.populateWithSomeRandomPostcode()
+    false && this.populateWithSomeRandomPostcode()
   }
 
   populateWithSomeRandomPostcode = () => this.getRandomPostcode().then(this.success,this.failure)
