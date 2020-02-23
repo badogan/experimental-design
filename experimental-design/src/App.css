@@ -160,11 +160,6 @@ body {
   outline-offset: 0.5rem; */
 }
 
-.PostSearch-Buttons {
-  display:flex;
-  flex-direction: column;
-}
-
 .whatsapp-button {
   border:0.1em solid red;
 }

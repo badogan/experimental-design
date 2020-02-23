@@ -1,8 +1,11 @@
 import React from 'react'
 
+let citymapperLinkPre = 'https://citymapper.com/directions?endcoord='
+let cityMapperLinkMid = '%2C'
+
 export default class PlaceCard extends React.Component {
     render() {
-        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, url } = this.props.place
+        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, url,latitude,longitude } = this.props.place
         return (
             <React.Fragment>
                 <div className="place-card-each wrapper">
@@ -15,8 +18,16 @@ export default class PlaceCard extends React.Component {
                     <div >
                         <input type="checkbox" checked={selected} onChange={() => this.props.handleSelect(place_id)} />
                     </div>
+                    <br/>
                     <div>
-                        {selected && <a href={url}>Take me to Google Maps for {name}</a>}
+                        {selected && 
+                        <a href={url}>
+                        Take me to Google Maps</a>
+                        }
+                    </div>
+                    <br/>
+                    <div>
+                        {selected && <a href={citymapperLinkPre + latitude + cityMapperLinkMid + longitude}>CityMapper Link</a>}
                     </div>
                 </div>
 

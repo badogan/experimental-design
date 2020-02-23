@@ -45,4 +45,18 @@ const extractAddress = (address_components) => {
     return resultsObject
 }
 
-export default { extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+const WhatsApp = (currentState) => {
+    let domainToForward = 'https://fc5a9262.ngrok.io'
+    let urlPrep = `whatsapp://send?text=${domainToForward}/results?`
+    urlPrep += `duration=${currentState.duration}:`
+    urlPrep += `postcode=${currentState.postcode}:`
+    urlPrep += `places=${
+        currentState.places.filter(place=>place.selected).map(place=>place.place_id)
+    }`
+
+
+
+    return urlPrep
+} 
+
+export default { WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

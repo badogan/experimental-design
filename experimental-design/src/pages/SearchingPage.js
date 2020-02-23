@@ -117,12 +117,10 @@ export default class SearchingPage extends React.Component {
             <React.Fragment>
                 <h2>Please wait ...</h2>
                 <br />
-                {/* {API.searchingMessages().map((message,index)=><ShowMessage key={index} message={message}/>)} */}
                 {this.state.showStep0 && <ShowMessage message={Helper.SearchingPageMessages()[0]} />}
                 {this.state.showStep1 && <ShowMessage message={Helper.SearchingPageMessages()[1]} />}
                 {this.state.showStep2 && <ShowMessage message={Helper.SearchingPageMessages()[2]} />}
                 {this.state.showStep3 && <ShowMessage message={Helper.SearchingPageMessages()[3]} />}
-                {/* {this.props.constructedURL && <Link to="/about">About</Link>} */}
             </React.Fragment>
         )
     }

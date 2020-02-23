@@ -63,8 +63,8 @@ class App extends React.Component {
   updateConstructedURL = () => {
     let url = '/results?'
     const averageDuration = this.state.searchingDurations.reduce((sum, num) => sum + num, 0) / this.state.searchingDurations.length
-    url += `duration=${averageDuration}&`
-    url += `postcode=${this.state.searchingMidPointPostcode}&`
+    url += `duration=${averageDuration}:`
+    url += `postcode=${this.state.searchingMidPointPostcode}:`
     url += `places=${this.state.searchingItemsToPresent.join(',')}`
     this.props.history.push(url)
   }
