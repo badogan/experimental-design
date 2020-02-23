@@ -9,12 +9,11 @@ export default class PostSearchPage extends React.Component {
 
     state = {
         duration: null,
-        postcode: null,
         places: []
     }
 
     handleWhatsAppClick = () => {
-        window.open((Helper.WhatsApp(this.state)),'_blank')
+        window.open((Helper.WhatsApp(this.state)), '_blank')
     }
 
     handleSelect = (idOfPlaceToUpdate) => {
@@ -37,7 +36,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     presentationDetailsFromQuery = (query) => {
-        const params = new URLSearchParams(query.replace(/:/g,'&'))
+        const params = new URLSearchParams(query.replace(/:/g, '&'))
         const durationInput = params.get('duration')
         const postcodeInput = params.get('postcode')
         const placesInput = params.get('places').split(',')
@@ -72,16 +71,25 @@ export default class PostSearchPage extends React.Component {
                         })
                         place.selected = true
                         this.setState({
-                            places: [...this.state.places, place],
-                            updateWhatsAppButton: true
+                            places: [...this.state.places, place]
                         })
                         resolve()
-                        // console.log(place)
                     } else { console.log("Google PlacesService error (may be) code is...: ", status) }
                 })
             })
         }
         )
+    }
+
+    presentPostcode = (inputPostcode) => {
+        console.log(inputPostcode)
+        return new Promise((resolve)=>{
+            if (inputPostcode === null) {
+                console.log("I am here")
+                this.setState({ postcode: this.state.places[0].postcode })
+                // this.setState({postcode: 'basri1'})
+            } else { this.setState({ postcode: 'basri2' }) }
+        })
     }
 
     render() {
@@ -92,7 +100,7 @@ export default class PostSearchPage extends React.Component {
                         <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]} />
                     </div>
                     <div className="key-data-each wrapper">
-                        <KeyDataComm content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} />
+                        {this.state.places.length !==0 ? <KeyDataComm content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} /> :null}
                     </div>
                 </div>
                 <div className="place-cards-all wrapper">
@@ -100,7 +108,7 @@ export default class PostSearchPage extends React.Component {
                 </div>
                 <br />
                 <div>
-                    <WhatsAppButton handleWhatsAppClick={this.handleWhatsAppClick}/>
+                    <WhatsAppButton handleWhatsAppClick={this.handleWhatsAppClick} />
                     {/* <button className="whatsapp-button">WhatsApp Share</button> */}
                 </div>
             </React.Fragment>

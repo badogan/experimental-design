@@ -97,6 +97,7 @@ export default class SearchingPage extends React.Component {
                         if (results.length === null) { console.log("results received from nearby search is null") }
                         if (results.length === 0) { console.log('results received from nearby search is empty') }
                         else {
+                            console.log("results are...", results)
                             Helper.decideOnTheItemsToPresent(results).forEach(place => {
                                 this.props.updateItemsToPresent(place.place_id)
                                 resolve()
@@ -106,22 +107,22 @@ export default class SearchingPage extends React.Component {
                 })
             })
             .then(() => {
-                this.setState({ showStep3: true })
-                this.props.updateConstructedURL()
-            })
+    this.setState({ showStep3: true })
+    this.props.updateConstructedURL()
+})
         //   END: Shoukld handover to react router, update state clarifying where the link came from - searching or link router
     }
 
-    render() {
-        return (
-            <React.Fragment>
-                <h2>Please wait ...</h2>
-                <br />
-                {this.state.showStep0 && <ShowMessage message={Helper.SearchingPageMessages()[0]} />}
-                {this.state.showStep1 && <ShowMessage message={Helper.SearchingPageMessages()[1]} />}
-                {this.state.showStep2 && <ShowMessage message={Helper.SearchingPageMessages()[2]} />}
-                {this.state.showStep3 && <ShowMessage message={Helper.SearchingPageMessages()[3]} />}
-            </React.Fragment>
-        )
-    }
+render() {
+    return (
+        <React.Fragment>
+            <h2>Please wait ...</h2>
+            <br />
+            {this.state.showStep0 && <ShowMessage message={Helper.SearchingPageMessages()[0]} />}
+            {this.state.showStep1 && <ShowMessage message={Helper.SearchingPageMessages()[1]} />}
+            {this.state.showStep2 && <ShowMessage message={Helper.SearchingPageMessages()[2]} />}
+            {this.state.showStep3 && <ShowMessage message={Helper.SearchingPageMessages()[3]} />}
+        </React.Fragment>
+    )
+}
 }

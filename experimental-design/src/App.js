@@ -11,7 +11,7 @@ class App extends React.Component {
 
   state = {
     // presearchEnteredPostcodes: [],
-    presearchEnteredPostcodes: ['EC2Y9AG', 'N18XX'],
+    presearchEnteredPostcodes: ['RG109ny','sw40nh','EC2A1NT'],
     presearchPlaceType: 'Pub',
     presearchRadioCar: false,
     searchingInitiated: false,
@@ -128,6 +128,9 @@ class App extends React.Component {
                 searchingOriginsArray={this.state.searchingOriginsArray}
                 presearchRadioCar={this.state.presearchRadioCar}
                 presearchPlaceType={this.state.presearchPlaceType}
+                searchingItemsToPresent={this.state.searchingItemsToPresent}
+                searchingMidPointPostcode={this.state.searchingMidPointPostcode}
+
               />
             }} />
           </div>

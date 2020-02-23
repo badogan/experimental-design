@@ -1,5 +1,7 @@
 // use this for config also. decide if I'd better move to something else later
 
+import API from './API'
+
 const SearchingPageMessages = () => [
     'Calculating midpoint ...',
     'Assessing midpoint postcode ...',
@@ -53,10 +55,8 @@ const WhatsApp = (currentState) => {
     urlPrep += `places=${
         currentState.places.filter(place=>place.selected).map(place=>place.place_id)
     }`
-
-
-
     return urlPrep
 } 
+
 
 export default { WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
