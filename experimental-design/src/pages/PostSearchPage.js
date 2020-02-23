@@ -12,15 +12,19 @@ export default class PostSearchPage extends React.Component {
         places: []
     }
 
-    componentDidMount() {
-        true && this.putAllTogether()
+    handleSelect = (idOfPlaceToUpdate) => {
+        let copyOfCurrentStateForPlaces = [...this.state.places]
+        let targetObject = copyOfCurrentStateForPlaces.find(place=>place.place_id===idOfPlaceToUpdate)
+        let targetIndex = this.state.places.indexOf(targetObject)
+        targetObject.selected = !targetObject.selected
+        copyOfCurrentStateForPlaces[targetIndex] = targetObject
+        this.setState({
+            places: copyOfCurrentStateForPlaces
+        })
     }
 
-    putAllTogether = () => {
-        return new Promise ((resolve)=>{
-            this.presentPlacesAndFurtherOptions()
-            resolve()
-        })
+    componentDidMount() {
+        true && this.presentPlacesAndFurtherOptions()
     }
 
     presentationDetailsFromQuery = (query) => {
@@ -48,7 +52,7 @@ export default class PostSearchPage extends React.Component {
                     if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                         place.photosURL = []
                         for (const photo of place.photos) {
-                            place.photosURL.push(photo.getUrl({ maxHeight: 300 }))
+                            place.photosURL.push(photo.getUrl({ maxHeight: 50 }))
                         }
                         place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
                         API.lookUpAPostCode(place.postcode).then(object => {
@@ -57,6 +61,7 @@ export default class PostSearchPage extends React.Component {
                                 place.latitude = object.result.latitude
                             } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
                         })
+                        place.selected = true
                         this.setState({ 
                             places: [...this.state.places,place]
                          })
@@ -81,7 +86,7 @@ export default class PostSearchPage extends React.Component {
                     </div>
                 </div>
                 <div className="place-cards-all wrapper">
-                    {this.state.places.length!==0 ? this.state.places.map(place => <PlaceCard key={place.place_id} place={place} />) :null}
+                    {this.state.places.length!==0 ? this.state.places.map(place => <PlaceCard key={place.place_id} place={place} handleSelect={this.handleSelect}/>)  :null}
                 </div>
                 <div className="PostSearch-Buttons">
                     <button className="whatsapp-button">WhatsApp Share</button>

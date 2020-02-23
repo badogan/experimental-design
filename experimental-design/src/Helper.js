@@ -13,6 +13,7 @@ const PostSearchPageMessages = () => [
 ]
 
 const decideOnTheItemsToPresent = (allItems) => {
+    console.log("allitems: ",allItems)
     let maxNumberOfResults = 3
     let targetGroup = allItems.sort((a, b) => a.user_ratings_total > b.user_ratings_total ? -1 : 1).sort((a, b) => a.rating > b.rating ? -1 : 1)
     if (targetGroup.length >= maxNumberOfResults) {
@@ -33,4 +34,15 @@ const processDuration = (min) => {
     return message
 }
 
-export default { processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+const extractAddress = (address_components) => {
+    let addressComponentsToReturn = ['street_number','route','neighborhood','postal_town']
+    let resultsObject = []
+    for (const component of addressComponentsToReturn){
+        let data = address_components.find(addressComponent=>addressComponent.types.includes(`${component}`)).long_name
+        resultsObject = [...resultsObject,{component:data}]
+        console.log("resultsObject: ",resultsObject)
+    }
+    return resultsObject
+}
+
+export default { extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

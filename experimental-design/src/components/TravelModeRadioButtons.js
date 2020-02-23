@@ -19,7 +19,3 @@ export default class TravelModeRadioButtons extends React.Component {
         )
     }
 }
-
-
-// <TravelModeRadioButtons handleRadioPublicTransport={this.handleRadioPublicTransport} 
-// handleRadioCar={this.handleRadioCar} stateOfCar={this.state.presearchRadioCar} stateOfPublicTransport={this.state.presearchRadioPublicTransport}/>

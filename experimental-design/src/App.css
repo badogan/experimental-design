@@ -145,6 +145,21 @@ body {
   border:0.1em solid green;
 }
 
+.place-card-each {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 0.5rem outset pink; */
+  outline: 0.1rem solid khaki;
+  /* box-shadow: 0 0 0 2rem skyblue;
+  border-radius: 12px;
+  font: bold 1rem sans-serif;
+  margin: 2rem;
+  padding: 1rem;
+  outline-offset: 0.5rem; */
+}
+
 .PostSearch-Buttons {
   display:flex;
   flex-direction: column;
