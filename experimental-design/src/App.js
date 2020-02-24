@@ -83,6 +83,7 @@ class App extends React.Component {
           </div>
           <div className="presearch-container wrapper">
             <Route exact path="/" render={routerProps => {
+              // console.log('presearch hitting /',routerprops)
               return <PreSearchPage
                 content={API.contentForEncouragingText()} //EncouragingText
                 presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
@@ -98,6 +99,7 @@ class App extends React.Component {
 
           <div className="searching-container wrapper">
             <Route path="/search" render={routerProps => {
+              // console.log('searching hitting /search',routerprops)
               return <SearchingPage
                 {...routerProps}
                 updateMidPointLongLat={this.updateMidPointLongLat}

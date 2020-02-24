@@ -4,6 +4,7 @@ import KeyDataComm from '../components/KeyDataComm'
 import ApproxPostcodeComm from '../components/ApproxPostcodeComm'
 import PlaceCard from '../components/PlaceCard'
 import WhatsAppButton from '../components/WhatsAppButton'
+import API from '../API'
 
 export default class PostSearchPage extends React.Component {
 
@@ -41,11 +42,12 @@ export default class PostSearchPage extends React.Component {
                 })
             }
         })
+        API.postToBackend(this.props.location)
     }
 
     presentPlacesAndFurtherOptions = () => {
         const details = Helper.presentationDetailsFromQuery(this.props.location.search)
-        
+
         this.setState({
             duration: details.duration,
             postcode: details.postcode

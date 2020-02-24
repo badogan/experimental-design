@@ -1,5 +1,7 @@
 import React from 'react'
 
+import API from '../API'
+
 import EncouragingText from '../components/EncouragingText'
 import PostcodeCard from '../components/PostcodeCard'
 import PostcodeInput from '../components/PostcodeInput'
@@ -8,6 +10,11 @@ import PlaceTypesDropDown from '../components/PlaceTypesDropDown'
 import SearchInitiation from '../components/SearchInitiation'
 
 export default class PreSearchPage extends React.Component {
+
+    componentDidMount() {
+        API.postToBackend(this.props.location)
+    }
+
     render(){
         const {content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection, initiateSearching } = this.props
         return(

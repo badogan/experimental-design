@@ -13,6 +13,7 @@ export default class SearchingPage extends React.Component {
     }
 
     componentDidMount() {
+        API.postToBackend(this.props.location)
         this.doSearchAndHandoverToPostSearch()
     }
 
@@ -93,7 +94,7 @@ export default class SearchingPage extends React.Component {
                     radius: 1500,
                     keyword: this.props.presearchPlaceType
                 };
-                
+
                 let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
 
                 return new Promise((resolve) => {
