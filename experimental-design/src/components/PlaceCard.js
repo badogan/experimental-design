@@ -5,23 +5,19 @@ import API from '../API'
 export default class PlaceCard extends React.Component {
 
     handleCityMapper = () => {
-        return API.lookUpAPostCode(this.props.place.postcode)
-            .then(object => {
-                let longitudeFound
-                let latitudeFound
+
+        API.lookUpAPostCode(this.props.place.postcode).then(object => {
                 if (object.status === 200) {
-                    longitudeFound = object.result.longitude
-                    latitudeFound = object.result.latitude
-                    return window.open((Helper.CityMapper({
-                        longitude: longitudeFound,
-                        latitude: latitudeFound
-                    })), '_blank')
+                    window.open( (Helper.CityMapper({
+                        longitude: object.result.longitude,
+                        latitude: object.result.latitude
+                    })),'_blank')
                 } else { console.log("error in postcode io lookupApostcode. code is ", object.status) } 
             })
     }
 
     render() {
-        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, url } = this.props.place
+        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, longitude, latitude, url } = this.props.place
         return (
             <React.Fragment>
                 <div className="place-card-each wrapper">
@@ -36,14 +32,18 @@ export default class PlaceCard extends React.Component {
                     </div>
                     <br />
                     <div>
-                        {selected &&
+
+                        {selected && <button onClick={()=>window.open(url,'_blank')}>> Google Maps</button>}
+                        {/* {selected &&
                             <a href={url}>
                                 Take me to Google Maps</a>
-                        }
+                        } */}
                     </div>
                     <br />
                     <div>
-                        {selected && <button onClick={()=>this.handleCityMapper()}>CityMapper</button>}
+                        {selected && <button onClick={()=>window.open(Helper.CityMapper({longitude,latitude})
+                            ,'_blank')}>> CityMapper</button>}
+                        
                     </div>
                 </div>
 

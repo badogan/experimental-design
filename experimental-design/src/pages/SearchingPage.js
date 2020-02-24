@@ -73,7 +73,10 @@ export default class SearchingPage extends React.Component {
                     matrixService.getDistanceMatrix(distanceConfigObject, (response, status) => {
                         if (status === 'OK') {
                             response.rows.forEach(row => {
-                                this.props.updateDurations(row.elements[0].duration.value / 60)
+                                console.log("the row is...", row)
+                                if (row.elements[0].status !== 'ZERO_RESULTS') {
+                                    this.props.updateDurations(row.elements[0].duration.value / 60)
+                                }
                                 resolve()
                             })
                         } else { console.log('distance api call result NOT ok') }
@@ -87,9 +90,10 @@ export default class SearchingPage extends React.Component {
                         lat: this.props.searchingMidPointLongLat.latitude,
                         lng: this.props.searchingMidPointLongLat.longitude
                     },
-                    radius: 1000,
+                    radius: 1500,
                     keyword: this.props.presearchPlaceType
                 };
+                
                 let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
 
                 return new Promise((resolve) => {
@@ -107,22 +111,22 @@ export default class SearchingPage extends React.Component {
                 })
             })
             .then(() => {
-    this.setState({ showStep3: true })
-    this.props.updateConstructedURL()
-})
+                this.setState({ showStep3: true })
+                this.props.updateConstructedURL()
+            })
         //   END: Shoukld handover to react router, update state clarifying where the link came from - searching or link router
     }
 
-render() {
-    return (
-        <React.Fragment>
-            <h2>Please wait ...</h2>
-            <br />
-            {this.state.showStep0 && <ShowMessage message={Helper.SearchingPageMessages()[0]} />}
-            {this.state.showStep1 && <ShowMessage message={Helper.SearchingPageMessages()[1]} />}
-            {this.state.showStep2 && <ShowMessage message={Helper.SearchingPageMessages()[2]} />}
-            {this.state.showStep3 && <ShowMessage message={Helper.SearchingPageMessages()[3]} />}
-        </React.Fragment>
-    )
-}
+    render() {
+        return (
+            <React.Fragment>
+                <h2>Please wait ...</h2>
+                <br />
+                {this.state.showStep0 && <ShowMessage message={Helper.SearchingPageMessages()[0]} />}
+                {this.state.showStep1 && <ShowMessage message={Helper.SearchingPageMessages()[1]} />}
+                {this.state.showStep2 && <ShowMessage message={Helper.SearchingPageMessages()[2]} />}
+                {this.state.showStep3 && <ShowMessage message={Helper.SearchingPageMessages()[3]} />}
+            </React.Fragment>
+        )
+    }
 }

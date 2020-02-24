@@ -65,7 +65,7 @@ const WhatsApp = (currentState) => {
 const CityMapper = (props) => {
     let citymapperLinkPre = 'https://citymapper.com/directions?endcoord='
     let cityMapperLinkMid = '%2C'
-    return `${citymapperLinkPre} + ${props.latitude} + ${cityMapperLinkMid} + ${props.longitude}`
+    return `${citymapperLinkPre}${props.latitude}${cityMapperLinkMid}${props.longitude}`
 }
 
 const bringPlacesObjects = (placesIdsArray) => {
@@ -87,16 +87,17 @@ const bringPlacesObjects = (placesIdsArray) => {
                             place.photosURL.push(photo.getUrl({ maxHeight: 50 }))
                         }
                     }
-                    place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
-                    // API.lookUpAPostCode(place.postcode)
-                    //     .then(object => {
-                    //         if (object.status === 200) {
-                    //             place.longitude = object.result.longitude
-                    //             place.latitude = object.result.latitude
-                    //         } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
-                    //     })
                     place.selected = true
-                    resolve(place)
+                    place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
+                    API.lookUpAPostCode(place.postcode)
+                        .then(object => {
+                            if (object.status === 200) {
+                                place.longitude = object.result.longitude
+                                place.latitude = object.result.latitude
+                            } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
+
+                            resolve(place)
+                        })
 
                 } else { console.log("Google PlacesService error (may be) code is...: ", status) }
             })

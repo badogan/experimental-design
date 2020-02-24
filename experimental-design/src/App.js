@@ -10,7 +10,7 @@ class App extends React.Component {
 
   state = {
     // presearchEnteredPostcodes: [],
-    presearchEnteredPostcodes: ['RG109ny','sw40nh','EC2A1NT'],
+    presearchEnteredPostcodes: ['EC2A1NT'],
     presearchPlaceType: 'Pub',
     presearchRadioCar: false,
     searchingInitiated: false,
@@ -20,31 +20,19 @@ class App extends React.Component {
     searchingDurations: [],
     searchingItemsToPresent: []
   }
-  // TODO: ASK TO SAM WHY THIS IS NOT WORKING
+  // RANDOM POSTCODE
   componentDidMount() {
-    false && this.populateWithSomeRandomPostcode()
+    true && this.populateWithSomeRandomPostcode()
   }
-
   populateWithSomeRandomPostcode = () => this.getRandomPostcode().then(this.success, this.failure)
-
   success = (randompostcode) => {
-    return new Promise((resolve) => {
       this.setState({
         presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, randompostcode.toUpperCase()]
       })
-      resolve()
-    })
   }
-
   failure = () => null
-
-  getRandomPostcode = () => {
-    return new Promise((resolve) => {
-      API.getARandomPostcode()
-      resolve()
-    })
-  }
-  //END OF TODO
+  getRandomPostcode = () => API.getARandomPostcode()
+  //RANDOM POSTCODE FUNCTIONALITY
 
   //// START: Searching Related
   initiateSearching = () => {
@@ -71,11 +59,6 @@ class App extends React.Component {
 
   //// START: preSearch Related
   addPostcode = (postcode) => {
-    // if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) { return { error: true, message: 'Postcode already entered' } }
-    // else {
-    //   this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
-    //   return { error: false }
-    // }
     this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
   }
   deletePostcode = (postcode) => this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes].filter(object => object !== postcode) })

@@ -44,11 +44,13 @@ export default class PostSearchPage extends React.Component {
     }
 
     presentPlacesAndFurtherOptions = () => {
+        const details = Helper.presentationDetailsFromQuery(this.props.location.search)
+        
         this.setState({
-            duration: Helper.presentationDetailsFromQuery(this.props.location.search).duration,
-            postcode: Helper.presentationDetailsFromQuery(this.props.location.search).postcode
+            duration: details.duration,
+            postcode: details.postcode
         })
-        return Helper.bringPlacesObjects(Helper.presentationDetailsFromQuery(this.props.location.search).places)
+        return Helper.bringPlacesObjects(details.places)
             .then((places) => {
                 this.setState({
                     places: [...places]

@@ -33,7 +33,7 @@ const lookUpAPostCode = (postcode) => getSimple(`${lookUpAPostCodeURL}${postcode
 
 const getNearestPostCode = (object) => getSimple(`${getNearestPostCodeURL}lon=${object.longitude}&lat=${object.latitude}`)
 const validatePostCode = (postcode) => getSimple(`${validatePostCodeURL_P1}${postcode}/validate`)
-const getARandomPostcode = () => getSimple(randomPostCodeURL)
+const getARandomPostcode = () => getSimple(randomPostCodeURL).then(data => data.result.postcode)
 // FUNCTIONAL - NOT SURE IF THEY NEED TO BE HERE OR IN SOME OTHER API-LIKE STRUCTURE
 const contentForEncouragingText = () => 'Simplicity at its best! Meet with your friends in the middle! Everybody spending approximately the same travel time! No more decisions or browsing tens of possible places ! See magic happening!'
 const searchingMessages = () => [
