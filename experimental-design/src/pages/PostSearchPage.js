@@ -67,29 +67,22 @@ export default class PostSearchPage extends React.Component {
                             if (object.status === 200) {
                                 place.longitude = object.result.longitude
                                 place.latitude = object.result.latitude
+                                Helper.checkIfNull(this.presentationDetailsFromQuery(this.props.location.search).postcode) && this.setState({postcode: place.postcode})
                             } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
                         })
                         place.selected = true
                         this.setState({
                             places: [...this.state.places, place]
                         })
+                        // BUGFIX: Below handles if the midlocation does not have a postcode
+                        Helper.checkIfNull(this.presentationDetailsFromQuery(this.props.location.search).postcode) && (this.state.places.length !==0) && this.setState({postcode: place.postcode})
                         resolve()
+                        // END BUGFIX
                     } else { console.log("Google PlacesService error (may be) code is...: ", status) }
                 })
             })
         }
         )
-    }
-
-    presentPostcode = (inputPostcode) => {
-        console.log(inputPostcode)
-        return new Promise((resolve)=>{
-            if (inputPostcode === null) {
-                console.log("I am here")
-                this.setState({ postcode: this.state.places[0].postcode })
-                // this.setState({postcode: 'basri1'})
-            } else { this.setState({ postcode: 'basri2' }) }
-        })
     }
 
     render() {

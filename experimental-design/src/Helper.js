@@ -2,6 +2,10 @@
 
 import API from './API'
 
+async function checkIfNull(x) {
+    return true && (x===null)
+}
+
 const SearchingPageMessages = () => [
     'Calculating midpoint ...',
     'Assessing midpoint postcode ...',
@@ -59,4 +63,4 @@ const WhatsApp = (currentState) => {
 } 
 
 
-export default { WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+export default { checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
