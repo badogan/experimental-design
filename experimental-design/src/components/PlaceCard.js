@@ -1,11 +1,27 @@
 import React from 'react'
-
-let citymapperLinkPre = 'https://citymapper.com/directions?endcoord='
-let cityMapperLinkMid = '%2C'
+import Helper from '../Helper'
+import API from '../API'
 
 export default class PlaceCard extends React.Component {
+
+    handleCityMapper = () => {
+        return API.lookUpAPostCode(this.props.place.postcode)
+            .then(object => {
+                let longitudeFound
+                let latitudeFound
+                if (object.status === 200) {
+                    longitudeFound = object.result.longitude
+                    latitudeFound = object.result.latitude
+                    return window.open((Helper.CityMapper({
+                        longitude: longitudeFound,
+                        latitude: latitudeFound
+                    })), '_blank')
+                } else { console.log("error in postcode io lookupApostcode. code is ", object.status) } 
+            })
+    }
+
     render() {
-        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, url,latitude,longitude } = this.props.place
+        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, url } = this.props.place
         return (
             <React.Fragment>
                 <div className="place-card-each wrapper">
@@ -18,16 +34,16 @@ export default class PlaceCard extends React.Component {
                     <div >
                         <input type="checkbox" checked={selected} onChange={() => this.props.handleSelect(place_id)} />
                     </div>
-                    <br/>
+                    <br />
                     <div>
-                        {selected && 
-                        <a href={url}>
-                        Take me to Google Maps</a>
+                        {selected &&
+                            <a href={url}>
+                                Take me to Google Maps</a>
                         }
                     </div>
-                    <br/>
+                    <br />
                     <div>
-                        {selected && <a href={citymapperLinkPre + latitude + cityMapperLinkMid + longitude}>CityMapper Link</a>}
+                        {selected && <button onClick={()=>this.handleCityMapper()}>CityMapper</button>}
                     </div>
                 </div>
 

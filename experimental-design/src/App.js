@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import API from './API'
-import Card from './components/Card'
 import PreSearchPage from './pages/PreSearchPage'
 import SearchingPage from './pages/SearchingPage'
 import PostSearchPage from './pages/PostSearchPage'
@@ -11,7 +10,7 @@ class App extends React.Component {
 
   state = {
     // presearchEnteredPostcodes: [],
-    presearchEnteredPostcodes: ['RG109ny','sw40nh'],
+    presearchEnteredPostcodes: ['RG109ny','sw40nh','EC2A1NT'],
     presearchPlaceType: 'Pub',
     presearchRadioCar: false,
     searchingInitiated: false,
@@ -72,11 +71,12 @@ class App extends React.Component {
 
   //// START: preSearch Related
   addPostcode = (postcode) => {
-    if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) { return { error: true, message: 'Postcode already entered' } }
-    else {
-      this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
-      return { error: false }
-    }
+    // if (this.state.presearchEnteredPostcodes.includes(postcode.toUpperCase())) { return { error: true, message: 'Postcode already entered' } }
+    // else {
+    //   this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
+    //   return { error: false }
+    // }
+    this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
   }
   deletePostcode = (postcode) => this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes].filter(object => object !== postcode) })
   handlePlaceTypeSelection = (selection) => this.setState({ presearchPlaceType: selection })

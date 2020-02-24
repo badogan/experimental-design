@@ -1,7 +1,7 @@
 import React from 'react'
-import API from '../API'
 import Helper from '../Helper'
 import KeyDataComm from '../components/KeyDataComm'
+import ApproxPostcodeComm from '../components/ApproxPostcodeComm'
 import PlaceCard from '../components/PlaceCard'
 import WhatsAppButton from '../components/WhatsAppButton'
 
@@ -32,60 +32,32 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        false && this.presentPlacesAndFurtherOptions()
-    }
-
-    presentationDetailsFromQuery = (query) => {
-        const params = new URLSearchParams(query.replace(/:/g, '&'))
-        const durationInput = params.get('duration')
-        const postcodeInput = params.get('postcode')
-        const placesInput = params.get('places').split(',')
-        return { duration: durationInput, postcode: postcodeInput, places: placesInput }
+        true && this.presentPlacesAndFurtherOptions().then(() => {
+            if (Helper.presentationDetailsFromQuery(this.props.location.search).postcode.toString() === 'null') {
+                this.setState({ postcode: this.state.places[0].postcode })
+            } else {
+                this.setState({
+                    postcode: Helper.presentationDetailsFromQuery(this.props.location.search).postcode
+                })
+            }
+        })
     }
 
     presentPlacesAndFurtherOptions = () => {
-        let default_request_limited = {
-            fields: ['name', 'rating', 'user_ratings_total', 'photo', 'formatted_address', 'address_components', 'international_phone_number', 'website', 'place_id', 'url', 'geometry']
-        }
-        return new Promise((resolve) => {
-            this.setState({
-                duration: this.presentationDetailsFromQuery(this.props.location.search).duration,
-                postcode: this.presentationDetailsFromQuery(this.props.location.search).postcode
-            })
-            this.presentationDetailsFromQuery(this.props.location.search).places.map(placeId => {
-                let request = default_request_limited
-                request.placeId = placeId
-                let service = new window.google.maps.places.PlacesService(document.querySelector('#places'))
-                service.getDetails(request, (place, status) => {
-                    if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-                        place.photosURL = []
-                        for (const photo of place.photos) {
-                            place.photosURL.push(photo.getUrl({ maxHeight: 50 }))
-                        }
-                        place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
-                        API.lookUpAPostCode(place.postcode).then(object => {
-                            if (object.status === 200) {
-                                place.longitude = object.result.longitude
-                                place.latitude = object.result.latitude
-                                Helper.checkIfNull(this.presentationDetailsFromQuery(this.props.location.search).postcode) && this.setState({postcode: place.postcode})
-                            } else { console.log("error in postcode io lookupApostcode. code is ", object.status) }
-                        })
-                        place.selected = true
-                        this.setState({
-                            places: [...this.state.places, place]
-                        })
-                        // BUGFIX: Below handles if the midlocation does not have a postcode
-                        Helper.checkIfNull(this.presentationDetailsFromQuery(this.props.location.search).postcode) && (this.state.places.length !==0) && this.setState({postcode: place.postcode})
-                        resolve()
-                        // END BUGFIX
-                    } else { console.log("Google PlacesService error (may be) code is...: ", status) }
+        this.setState({
+            duration: Helper.presentationDetailsFromQuery(this.props.location.search).duration,
+            postcode: Helper.presentationDetailsFromQuery(this.props.location.search).postcode
+        })
+        return Helper.bringPlacesObjects(Helper.presentationDetailsFromQuery(this.props.location.search).places)
+            .then((places) => {
+                this.setState({
+                    places: [...places]
                 })
             })
-        }
-        )
     }
 
     render() {
+
         return (
             <React.Fragment>
                 <div className="key-data-comm-group wrapper">
@@ -93,7 +65,8 @@ export default class PostSearchPage extends React.Component {
                         <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]} />
                     </div>
                     <div className="key-data-each wrapper">
-                        {this.state.places.length !==0 ? <KeyDataComm content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} /> :null}
+                        { <ApproxPostcodeComm
+                            content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} />}
                     </div>
                 </div>
                 <div className="place-cards-all wrapper">
@@ -102,7 +75,6 @@ export default class PostSearchPage extends React.Component {
                 <br />
                 <div>
                     <WhatsAppButton handleWhatsAppClick={this.handleWhatsAppClick} />
-                    {/* <button className="whatsapp-button">WhatsApp Share</button> */}
                 </div>
             </React.Fragment>
         )

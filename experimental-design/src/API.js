@@ -30,6 +30,7 @@ const extractPostCode = (address_components) => {return address_components.find(
 
 const getPlaces = (requestObject) => getPlacesCoreCode(requestObject)
 const lookUpAPostCode = (postcode) => getSimple(`${lookUpAPostCodeURL}${postcode}`)
+
 const getNearestPostCode = (object) => getSimple(`${getNearestPostCodeURL}lon=${object.longitude}&lat=${object.latitude}`)
 const validatePostCode = (postcode) => getSimple(`${validatePostCodeURL_P1}${postcode}/validate`)
 const getARandomPostcode = () => getSimple(randomPostCodeURL)
