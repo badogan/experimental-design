@@ -27,7 +27,7 @@ class App extends React.Component {
   populateWithSomeRandomPostcode = () => this.getRandomPostcode().then(this.success, this.failure)
   success = (randompostcode) => {
       this.setState({
-        presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, randompostcode.toUpperCase()]
+        presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, randompostcode.toUpperCase().replace(' ','')]
       })
   }
   failure = () => null
@@ -59,7 +59,7 @@ class App extends React.Component {
 
   //// START: preSearch Related
   addPostcode = (postcode) => {
-    this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase()] });
+    this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes, postcode.toUpperCase().replace(' ','')] });
   }
   deletePostcode = (postcode) => this.setState({ presearchEnteredPostcodes: [...this.state.presearchEnteredPostcodes].filter(object => object !== postcode) })
   handlePlaceTypeSelection = (selection) => this.setState({ presearchPlaceType: selection })

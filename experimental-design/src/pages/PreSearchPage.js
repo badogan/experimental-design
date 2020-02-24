@@ -12,7 +12,7 @@ import SearchInitiation from '../components/SearchInitiation'
 export default class PreSearchPage extends React.Component {
 
     componentDidMount() {
-        API.postToBackend(this.props.location)
+        // API.postToBackend(this.props.location)
     }
 
     render(){

@@ -77,7 +77,7 @@ export default class SearchingPage extends React.Component {
                                 console.log("the row is...", row)
                                 if (row.elements[0].status !== 'ZERO_RESULTS') {
                                     this.props.updateDurations(row.elements[0].duration.value / 60)
-                                }
+                                } else {this.props.history.push('/')}
                                 resolve()
                             })
                         } else { console.log('distance api call result NOT ok') }
@@ -91,7 +91,7 @@ export default class SearchingPage extends React.Component {
                         lat: this.props.searchingMidPointLongLat.latitude,
                         lng: this.props.searchingMidPointLongLat.longitude
                     },
-                    radius: 1500,
+                    radius: 1000,
                     keyword: this.props.presearchPlaceType
                 };
 
@@ -99,8 +99,14 @@ export default class SearchingPage extends React.Component {
 
                 return new Promise((resolve) => {
                     service.nearbySearch(request, (results, status) => {
-                        if (results.length === null) { console.log("results received from nearby search is null") }
-                        if (results.length === 0) { console.log('results received from nearby search is empty') }
+                        if (results.length === null) { 
+                            console.log("results received from nearby search is null. status code is: ",status) 
+                            this.props.history.push('/')
+                        }
+                        if (results.length === 0) { 
+                            console.log('results received from nearby search is empty. status code is: ',status) 
+                            this.props.history.push('/')
+                        }
                         else {
                             console.log("results are...", results)
                             Helper.decideOnTheItemsToPresent(results).forEach(place => {
