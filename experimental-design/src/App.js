@@ -12,7 +12,7 @@ class App extends React.Component {
     // presearchEnteredPostcodes: [],
     presearchEnteredPostcodes: ['EC2A1NT'],
     presearchPlaceType: 'Pub',
-    presearchRadioCar: false,
+    presearchRadioCar: true,
     searchingInitiated: false,
     searchingOriginsArray: [],
     searchingMidPointLongLat: null,

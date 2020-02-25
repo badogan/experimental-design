@@ -14,7 +14,7 @@ export default class SearchingPage extends React.Component {
 
     componentDidMount() {
         // API.postToBackend(this.props.location)
-        this.doSearchAndHandoverToPostSearch()
+        true && this.doSearchAndHandoverToPostSearch()
     }
 
     postcodesFromQuery = (query) => {
@@ -35,21 +35,30 @@ export default class SearchingPage extends React.Component {
                 return (responsesForAllPostcodes)
             })
             .then((responsesForAllPostcodes) => {
-                let midPointLatitude = 0
-                let midPointLongitude = 0
-                responsesForAllPostcodes.forEach(response => {
-                    midPointLatitude = midPointLatitude + (response.result.latitude / responsesForAllPostcodes.length)
-                    midPointLongitude = midPointLongitude + (response.result.longitude / responsesForAllPostcodes.length)
-                })
-                let midPointObj = { latitude: midPointLatitude, longitude: midPointLongitude }
-                this.props.updateMidPointLongLat(midPointObj)
-                return (midPointObj)
+                let algoVersion = 'v2'
+                const midPointObj = Helper.decideOnTheMidPointObject(responsesForAllPostcodes,algoVersion)
+                return new Promise(resolve =>{
+                    this.props.updateMidPointLongLat(midPointObj)
+                    resolve(midPointObj)
+                    }
+                    )
+                // let midPointLatitude = 0
+                // let midPointLongitude = 0
+                // responsesForAllPostcodes.forEach(response => {
+                //     midPointLatitude = midPointLatitude + (response.result.latitude / responsesForAllPostcodes.length)
+                //     midPointLongitude = midPointLongitude + (response.result.longitude / responsesForAllPostcodes.length)
+                // })
+                // let midPointObj = { latitude: midPointLatitude, longitude: midPointLongitude }
+                // this.props.updateMidPointLongLat(midPointObj)
+                // return (midPointObj)
             })
             .then(midPointObj => {
                 this.setState({ showStep1: true })
+                console.log(midPointObj)
                 return API.getNearestPostCode(midPointObj)
             })
             .then(closestPostCodeObject => {
+                console.log('closestPostCodeObject ',closestPostCodeObject)
                 if (closestPostCodeObject.status === 200) {
                     if (closestPostCodeObject.result !== null) {
                         this.props.updateMidPointPostcode(closestPostCodeObject.result[0].postcode.replace(/ /g, '').toUpperCase())
@@ -58,32 +67,46 @@ export default class SearchingPage extends React.Component {
                 return true
             })
             .then(() => {
-                let originsGoogleMapObjects = this.props.searchingOriginsArray.map(item => {
-                    return new window.google.maps.LatLng(item.latitude, item.longitude)
-                })
-                let destinationGoogleMapObject = new window.google.maps.LatLng(this.props.searchingMidPointLongLat.latitude, this.props.searchingMidPointLongLat.longitude)
-                let distanceConfigObject = {
-                    origins: originsGoogleMapObjects,
-                    destinations: [destinationGoogleMapObject],
-                    travelMode: this.props.presearchRadioCar ? 'DRIVING' : 'TRANSIT'
-                }
-                let matrixService = new window.google.maps.DistanceMatrixService()
-
-                return new Promise((resolve) => {
-
-                    matrixService.getDistanceMatrix(distanceConfigObject, (response, status) => {
-                        if (status === 'OK') {
-                            response.rows.forEach(row => {
-                                console.log("the row is...", row)
-                                if (row.elements[0].status !== 'ZERO_RESULTS') {
-                                    this.props.updateDurations(row.elements[0].duration.value / 60)
-                                } else { this.props.history.push('/') }
-                                resolve()
-                            })
-                        } else { console.log('distance api call result NOT ok') }
-                    })
+                Helper.bringDistanceMatrix(this.props.searchingOriginsArray, [this.props.searchingMidPointLongLat], this.props.presearchRadioCar).then(object => {
+                    console.log("distance matrix object: ", object)
+                    if (object.status === 'OK') {
+                        object.response.rows.forEach(row => {
+                            // console.log("the row is...", row)
+                            if (row.elements[0].status !== 'ZERO_RESULTS') {
+                                this.props.updateDurations(row.elements[0].duration.value / 60)
+                            } else { this.props.history.push('/') }
+                        })
+                    } else { console.log('distance api call result NOT ok') }
                 })
             })
+
+            //CODE BELOW USED TO WORK
+            //     let originsGoogleMapObjects = this.props.searchingOriginsArray.map(item => {
+            //         return new window.google.maps.LatLng(item.latitude, item.longitude)
+            //     })
+            //     let destinationGoogleMapObject = new window.google.maps.LatLng(this.props.searchingMidPointLongLat.latitude, this.props.searchingMidPointLongLat.longitude)
+            //     let distanceConfigObject = {
+            //         origins: originsGoogleMapObjects,
+            //         destinations: [destinationGoogleMapObject],
+            //         travelMode: this.props.presearchRadioCar ? 'DRIVING' : 'TRANSIT'
+            //     }
+            //     let matrixService = new window.google.maps.DistanceMatrixService()
+
+            //     return new Promise((resolve) => {
+
+            //         matrixService.getDistanceMatrix(distanceConfigObject, (response, status) => {
+            //             if (status === 'OK') {
+            //                 response.rows.forEach(row => {
+            //                     // console.log("the row is...", row)
+            //                     if (row.elements[0].status !== 'ZERO_RESULTS') {
+            //                         this.props.updateDurations(row.elements[0].duration.value / 60)
+            //                     } else { this.props.history.push('/') }
+            //                     resolve()
+            //                 })
+            //             } else { console.log('distance api call result NOT ok') }
+            //         })
+            //     })
+            // })
             .then(() => {
 
                 this.setState({ showStep2: true })
@@ -94,10 +117,10 @@ export default class SearchingPage extends React.Component {
                 let keyword = this.props.presearchPlaceType
                 return Helper.bringNearBySearchResults(locationObj, keyword)
                     .then(object => {
-                        console.log(object)
+                        // console.log(object)
                         const chosenPlaces = Helper.decideOnTheItemsToPresent(object.results)
                         this.props.updateItemsToPresent(chosenPlaces.map(place => place.place_id))
-                        
+
                     })
                 //
                 // this.setState({ showStep2: true })
@@ -136,7 +159,6 @@ export default class SearchingPage extends React.Component {
                 this.setState({ showStep3: true })
                 this.props.updateConstructedURL()
             })
-        //   END: Shoukld handover to react router, update state clarifying where the link came from - searching or link router
     }
 
     render() {
