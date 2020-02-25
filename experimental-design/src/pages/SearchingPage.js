@@ -13,7 +13,7 @@ export default class SearchingPage extends React.Component {
     }
 
     componentDidMount() {
-        API.postToBackend(this.props.location)
+        // API.postToBackend(this.props.location)
         this.doSearchAndHandoverToPostSearch()
     }
 
@@ -77,7 +77,7 @@ export default class SearchingPage extends React.Component {
                                 console.log("the row is...", row)
                                 if (row.elements[0].status !== 'ZERO_RESULTS') {
                                     this.props.updateDurations(row.elements[0].duration.value / 60)
-                                } else {this.props.history.push('/')}
+                                } else { this.props.history.push('/') }
                                 resolve()
                             })
                         } else { console.log('distance api call result NOT ok') }
@@ -85,37 +85,52 @@ export default class SearchingPage extends React.Component {
                 })
             })
             .then(() => {
+
                 this.setState({ showStep2: true })
-                let request = {
-                    location: {
-                        lat: this.props.searchingMidPointLongLat.latitude,
-                        lng: this.props.searchingMidPointLongLat.longitude
-                    },
-                    radius: 1000,
-                    keyword: this.props.presearchPlaceType
-                };
+                let locationObj = {
+                    lat: this.props.searchingMidPointLongLat.latitude,
+                    lng: this.props.searchingMidPointLongLat.longitude
+                }
+                let keyword = this.props.presearchPlaceType
+                return Helper.bringNearBySearchResults(locationObj, keyword)
+                    .then(object => {
+                        console.log(object)
+                        const chosenPlaces = Helper.decideOnTheItemsToPresent(object.results)
+                        this.props.updateItemsToPresent(chosenPlaces.map(place => place.place_id))
+                        
+                    })
+                //
+                // this.setState({ showStep2: true })
+                // let request = {
+                //     location: {
+                //         lat: this.props.searchingMidPointLongLat.latitude,
+                //         lng: this.props.searchingMidPointLongLat.longitude
+                //     },
+                //     radius: 1000,
+                //     keyword: this.props.presearchPlaceType
+                // };
 
-                let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
+                // let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
 
-                return new Promise((resolve) => {
-                    service.nearbySearch(request, (results, status) => {
-                        if (results.length === null) { 
-                            console.log("results received from nearby search is null. status code is: ",status) 
-                            this.props.history.push('/')
-                        }
-                        if (results.length === 0) { 
-                            console.log('results received from nearby search is empty. status code is: ',status) 
-                            this.props.history.push('/')
-                        }
-                        else {
-                            console.log("results are...", results)
-                            Helper.decideOnTheItemsToPresent(results).forEach(place => {
-                                this.props.updateItemsToPresent(place.place_id)
-                                resolve()
-                            })
-                        }
-                    });
-                })
+                // return new Promise((resolve) => {
+                //     service.nearbySearch(request, (results, status) => {
+                //         if (results.length === null) { 
+                //             console.log("results received from nearby search is null. status code is: ",status) 
+                //             this.props.history.push('/')
+                //         }
+                //         if (results.length === 0) { 
+                //             console.log('results received from nearby search is empty. status code is: ',status) 
+                //             this.props.history.push('/')
+                //         }
+                //         else {
+                //             console.log("results are...", results)
+                //             Helper.decideOnTheItemsToPresent(results).forEach(place => {
+                //                 this.props.updateItemsToPresent(place.place_id)
+                //                 resolve()
+                //             })
+                //         }
+                //     });
+                // })
             })
             .then(() => {
                 this.setState({ showStep3: true })

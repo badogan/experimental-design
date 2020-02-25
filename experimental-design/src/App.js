@@ -44,8 +44,8 @@ class App extends React.Component {
   updateMidPointLongLat = (midPointObj) => this.setState({ searchingMidPointLongLat: midPointObj })
   updateMidPointPostcode = (postcode) => this.setState({ searchingMidPointPostcode: postcode })
   updateDurations = (duration) => this.setState({ searchingDurations: [...this.state.searchingDurations, duration] })
-  updateItemsToPresent = (placeId) => {
-    this.setState({ searchingItemsToPresent: [...this.state.searchingItemsToPresent, placeId] })
+  updateItemsToPresent = (searchingItemsToPresent) => {
+    this.setState({ searchingItemsToPresent: [...this.state.searchingItemsToPresent, ...searchingItemsToPresent] })
   }
   updateConstructedURL = () => {
     let url = '/results?'

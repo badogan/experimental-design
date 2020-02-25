@@ -69,7 +69,7 @@ const CityMapper = (props) => {
 }
 
 const bringPlacesObjects = (placesIdsArray) => {
-    if (placesIdsArray.length===0) return []
+    if (placesIdsArray.length === 0) return []
     let default_request_limited = {
         fields: ['name', 'rating', 'user_ratings_total', 'photo', 'formatted_address', 'address_components', 'international_phone_number', 'website', 'place_id', 'url', 'geometry']
     }
@@ -114,5 +114,30 @@ const presentationDetailsFromQuery = (query) => {
     return { duration: durationInput, postcode: postcodeInput, places: placesInput }
 }
 
+const bringNearBySearchResults = (locationObj, keywordReceived, radius = 1000) => {
+    
+    let request = {
+        location: locationObj,
+        radius,
+        keyword: keywordReceived
+    };
+    
+    return executeGoogleNearBySearch(request)
+        .then(data => {
+            if (data.results.length === 0) {
+                return bringNearBySearchResults(locationObj, keywordReceived, radius + 1000)
+            } else {
+                return data
+            }
+        })
+}
 
-export default { CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+
+const executeGoogleNearBySearch = (request) => {
+    let service = new window.google.maps.places.PlacesService(document.querySelector('#places'));
+    return new Promise(resolve => 
+        service.nearbySearch(request, (results, status) => resolve({results,status}))
+    )
+}
+
+export default { bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
