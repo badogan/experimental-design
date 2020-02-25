@@ -45,35 +45,80 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
 }
 
-.encourage-text {
-  color: blue;
+.encourage-text-div {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: #70C1B3 ;
+}
+
+.encourage-text-each {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
+  align-content: center;
+  color: FF1654;
 }
 
 .postcode-cards{
   display: flex;
   flex-wrap: wrap;
+  background-color: #70C1B3 ;
 }
 
 .each-card-div-style {
-  border: 1px solid green;
-  padding: 20px;
-}
-
-.postcode-entry {
   display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 0.2px ;
+  background-color: #F3FFBD;
+  padding: 8px;
+  margin: 1px;
+  border-radius: 1vh;
 }
 
+.postcode-entry-group {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  margin: 1px;
+}
+
+.postcode-text-input-field {
+  padding: 6px;
+  margin: 1px;
+  background-color: #F3FFBD;
+}
 .postcode-add-button {
-  border:0.1em solid red;
+  /* border:0.1em; */
+  /* border-radius: 1vh; */
+  /* padding: 8px; */
+  /* margin: 1px; */
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
 }
 
 .travel-mode-and-place-type-selector {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
+  border: 10px
 }
 
 .travel-mode-main {
@@ -86,6 +131,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 4px;
+  margin: 8px;
 }
 
 .travel-mode-car {
@@ -93,6 +140,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 14px;
+  margin: 8px;
+}
+
+.place-type-dropdown{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  margin: 8px;
 }
 
 .buttons-add-and-magic {
@@ -105,7 +163,19 @@ body {
 }
 
 .button-magic-formatting {
-  border:0.1em solid green;
+  /* border:0.1em solid green; */
+  display:inline-block;
+  padding:0.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
 }
 /* Searching Page */
 .presearch-container {

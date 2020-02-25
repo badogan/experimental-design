@@ -6,9 +6,8 @@ export default class PostcodeCard extends React.Component {
         return(
             <React.Fragment>
                 <div className='each-card-div-style'>
-                    <h3>Postcode Card</h3>
+                    <button onClick={()=>deletePostcode(data)}>X</button>
                     <h4>{data}</h4>
-                    <button onClick={()=>deletePostcode(data)}>Delete this - X</button>
                 </div>
             </React.Fragment>
         )

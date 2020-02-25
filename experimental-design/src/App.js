@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import API from './API'
+import Helper from './Helper'
 import PreSearchPage from './pages/PreSearchPage'
 import SearchingPage from './pages/SearchingPage'
 import PostSearchPage from './pages/PostSearchPage'
@@ -85,7 +86,7 @@ class App extends React.Component {
             <Route exact path="/" render={routerProps => {
               // console.log('presearch hitting /',routerprops)
               return <PreSearchPage
-                content={API.contentForEncouragingText()} //EncouragingText
+                content={Helper.contentForEncouragingText()} //EncouragingText
                 presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
                 deletePostcode={this.deletePostcode}
                 addPostcode={this.addPostcode}

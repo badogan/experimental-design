@@ -35,7 +35,7 @@ export default class SearchingPage extends React.Component {
                 return (responsesForAllPostcodes)
             })
             .then((responsesForAllPostcodes) => {
-                let algoVersion = 'v2'
+                let algoVersion = 'v1'
                 const midPointObj = Helper.decideOnTheMidPointObject(responsesForAllPostcodes,algoVersion)
                 return new Promise(resolve =>{
                     this.props.updateMidPointLongLat(midPointObj)

@@ -52,7 +52,7 @@ const extractAddress = (address_components) => {
 }
 
 const WhatsApp = (currentState) => {
-    let domainToForward = 'https://405983be.ngrok.io'
+    let domainToForward = 'https://4e4b8126.ngrok.io'
     let urlPrep = `whatsapp://send?text=${domainToForward}/results?`
     urlPrep += `duration=${currentState.duration}:`
     urlPrep += `postcode=${currentState.postcode}:`
@@ -206,4 +206,12 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
     }
 }
 
-export default { decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+const contentForEncouragingText = () => [
+    'Simplicity at its best!',
+    'Meet with your friends in the middle!',
+    'Everybody spending approximately the same travel time!',
+    'No more decisions or browsing tens of possible places !',
+    'See magic happening!'
+]
+
+export default { contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
