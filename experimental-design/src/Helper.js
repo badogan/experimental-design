@@ -207,11 +207,10 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
 }
 
 const contentForEncouragingText = () => [
-    'Simplicity at its best!',
-    'Meet with your friends in the middle!',
-    'Everybody spending approximately the same travel time!',
-    'No more decisions or browsing tens of possible places !',
-    'See magic happening!'
+    'Meet with friends!',
+    'Similar travel time for all',
+    'Carefully selected places',
+    'Start here...'
 ]
 
 export default { contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

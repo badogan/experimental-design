@@ -33,7 +33,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        false && this.presentPlacesAndFurtherOptions().then(() => {
+        true && this.presentPlacesAndFurtherOptions().then(() => {
             if (Helper.presentationDetailsFromQuery(this.props.location.search).postcode.toString() === 'null') {
                 this.setState({ postcode: this.state.places[0].postcode })
             } else {

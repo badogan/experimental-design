@@ -72,14 +72,12 @@ class App extends React.Component {
       <React.Fragment>
         <div className="App">
           <div className="header wrapper">
-            <div>
-              <h5>________</h5>
-              <h5>________</h5>
-              <h5>________</h5>
+            <div className="logo">
+              <h5>M</h5>
             </div>
-            <div>
-              <br />
-              <h1>Meet Me In The Middle</h1>
+            <div className="name-of-app">
+              <br/>
+              <h1>Meet In The Middle</h1>
             </div>
           </div>
           <div className="presearch-container wrapper">
