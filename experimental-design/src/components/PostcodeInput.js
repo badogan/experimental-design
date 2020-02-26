@@ -27,7 +27,7 @@ export default class PostCodeInput extends React.Component {
                         if (data.result === true) {
                             this.props.addPostcode(this.state.postcodeEntered)
                             this.setState({ userComm: 'enter postcode...' })
-                            this.setState({ postcodeEntered: null})
+                            this.setState({ postcodeEntered: null })
                         }
                         else {
                             this.setState({
@@ -43,12 +43,10 @@ export default class PostCodeInput extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <form onSubmit={this.handlePostcode}>
-                        <input className='postcode-text-input-field' onChange={this.updateEntry} type="text" placeholder={this.state.userComm}></input>
-                        <button className='postcode-add-button'>{this.props.presearchEnteredPostcodes.length > 1 ? 'Add' : 'Add'}</button>
-                    </form>
-                </div>
+                <form className="form22" onSubmit={this.handlePostcode}>
+                    <input className='postcode-text-input-field' onChange={this.updateEntry} type="text" placeholder={this.state.userComm}></input>
+                    <button className='postcode-add-button'>{this.props.presearchEnteredPostcodes.length > 1 ? 'Add' : 'Add'}</button>
+                </form>
             </React.Fragment>
         )
     }

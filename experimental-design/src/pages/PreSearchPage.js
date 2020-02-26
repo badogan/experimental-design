@@ -8,41 +8,42 @@ import PostcodeInput from '../components/PostcodeInput'
 import TravelModeRadioButtons from '../components/TravelModeRadioButtons'
 import PlaceTypesDropDown from '../components/PlaceTypesDropDown'
 import SearchInitiation from '../components/SearchInitiation'
+import Helper from '../Helper'
 
 export default class PreSearchPage extends React.Component {
 
     componentDidMount() {
+        //put a new function to update entered postcodes (if they exist in the uRL)
     }
 
-    render(){
-        const {content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection, initiateSearching } = this.props
-        return(
+    render() {
+        const { content, presearchEnteredPostcodes, deletePostcode, addPostcode, handleRadioSelection, stateOfCar, handlePlaceTypeSelection, initiateSearching, populateWithSomeRandomPostcode } = this.props
+        return (
             <React.Fragment>
                 <div className="encourage-text-div wrapper">
-                    <EncouragingText content={content[0]} />
-                    <EncouragingText content={content[1]} />
-                    <EncouragingText content={content[2]} />
-                    <EncouragingText content={content[3]} />
-                    <EncouragingText content={content[4]} />
+                    {content.map((text,index)=><EncouragingText key={index} content={text} populateWithSomeRandomPostcode={populateWithSomeRandomPostcode}/>)}
                 </div>
                 <div className="postcode-cards wrapper">
-                    {presearchEnteredPostcodes.map((postcode,index)=><PostcodeCard key={index} data={postcode} deletePostcode={deletePostcode}/>)}
-                </div>
-                <div className="postcode-entry-group">
-                    <PostcodeInput presearchEnteredPostcodes={presearchEnteredPostcodes} addPostcode={addPostcode}/>
+                    {presearchEnteredPostcodes.map((postcode, index) => <PostcodeCard key={index} data={postcode} deletePostcode={deletePostcode} />)}
                 </div>
                 <div className="travel-mode-and-place-type-selector wrapper">
-                    {presearchEnteredPostcodes.length>1 
-                        ? <TravelModeRadioButtons handleRadioSelection={handleRadioSelection} stateOfCar={stateOfCar}/> 
+                    {presearchEnteredPostcodes.length > 1
+                        ? <TravelModeRadioButtons handleRadioSelection={handleRadioSelection} stateOfCar={stateOfCar} />
                         : null}
-                    {presearchEnteredPostcodes.length>1 
-                        ? <PlaceTypesDropDown handlePlaceTypeSelection={handlePlaceTypeSelection}/> 
+                    {presearchEnteredPostcodes.length > 1
+                        ? <PlaceTypesDropDown handlePlaceTypeSelection={handlePlaceTypeSelection} />
                         : null}
                 </div>
+                <div className="postcode-entry-group">
+                    <PostcodeInput presearchEnteredPostcodes={presearchEnteredPostcodes} addPostcode={addPostcode} />
+                </div>
                 <div className="buttons-add-and-magic">
-                    {presearchEnteredPostcodes.length>1 
-                        ? <SearchInitiation initiateSearching={initiateSearching}/> 
+                    {presearchEnteredPostcodes.length > 1
+                        ? <SearchInitiation initiateSearching={initiateSearching} />
                         : null}
+                </div>
+                <div className="spacefiller">
+                    {Helper.spaceFillerArray(40).map((k,i) => <div key={i}> <br /></div>)}
                 </div>
             </React.Fragment>
         )

@@ -7,24 +7,53 @@ import PreSearchPage from './pages/PreSearchPage'
 import SearchingPage from './pages/SearchingPage'
 import PostSearchPage from './pages/PostSearchPage'
 
+const default_state = {
+  // presearchEnteredPostcodes: [],
+  presearchEnteredPostcodes: [],
+  presearchPlaceType: 'Pub',
+  presearchRadioCar: true,
+  searchingInitiated: false,
+  searchingOriginsArray: [],
+  searchingMidPointLongLat: null,
+  searchingMidPointPostcode: null, //Populate after search process completed only if available
+  searchingDurations: [],
+  searchingItemsToPresent: []
+}
+
 class App extends React.Component {
 
   state = {
-    // presearchEnteredPostcodes: [],
-    presearchEnteredPostcodes: ['EC2A1NT'],
-    presearchPlaceType: 'Pub',
-    presearchRadioCar: true,
-    searchingInitiated: false,
-    searchingOriginsArray: [],
-    searchingMidPointLongLat: null,
-    searchingMidPointPostcode: null, //Populate after search process completed only if available
-    searchingDurations: [],
-    searchingItemsToPresent: []
+    ...default_state
   }
-  // RANDOM POSTCODE
+  
   componentDidMount() {
-    true && this.populateWithSomeRandomPostcode()
+    const queryObject = Helper.presentationDetailsFromQuery(this.props.location.search)
+    if (queryObject.postcodes) {
+      this.setState({
+        presearchEnteredPostcodes: [...queryObject.postcodes]
+      })
+    }
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.location.pathname === '/results' && 
+      this.props.location.pathname === '/'
+      ) {
+      this.setState({
+        ...default_state
+      })
+      const queryObject = Helper.presentationDetailsFromQuery(this.props.location.search)
+      if (queryObject.postcodes) {
+        this.setState({
+          ...default_state,
+          presearchEnteredPostcodes: [...queryObject.postcodes]
+        })
+      }
+    }
+  }
+
+  // RANDOM POSTCODE
   populateWithSomeRandomPostcode = () => this.getRandomPostcode().then(this.success, this.failure)
   success = (randompostcode) => {
       this.setState({
@@ -44,7 +73,9 @@ class App extends React.Component {
   })
   updateMidPointLongLat = (midPointObj) => this.setState({ searchingMidPointLongLat: midPointObj })
   updateMidPointPostcode = (postcode) => this.setState({ searchingMidPointPostcode: postcode })
-  updateDurations = (duration) => this.setState({ searchingDurations: [...this.state.searchingDurations, duration] })
+  updateDurations = (duration) => {
+    this.setState({ searchingDurations: [...this.state.searchingDurations, duration] })
+  }
   updateItemsToPresent = (searchingItemsToPresent) => {
     this.setState({ searchingItemsToPresent: [...this.state.searchingItemsToPresent, ...searchingItemsToPresent] })
   }
@@ -53,7 +84,8 @@ class App extends React.Component {
     const averageDuration = this.state.searchingDurations.reduce((sum, num) => sum + num, 0) / this.state.searchingDurations.length
     url += `duration=${averageDuration}:`
     url += `postcode=${this.state.searchingMidPointPostcode}:`
-    url += `places=${this.state.searchingItemsToPresent.join(',')}`
+    url += `places=${this.state.searchingItemsToPresent.join(',')}:`
+    url += `postcodes=${this.state.presearchEnteredPostcodes.join(',')}`
     this.props.history.push(url)
   }
   //// END: Searching Related
@@ -85,6 +117,7 @@ class App extends React.Component {
               // console.log('presearch hitting /',routerprops)
               return <PreSearchPage
                 content={Helper.contentForEncouragingText()} //EncouragingText
+                populateWithSomeRandomPostcode={this.populateWithSomeRandomPostcode}
                 presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
                 deletePostcode={this.deletePostcode}
                 addPostcode={this.addPostcode}

@@ -14,7 +14,7 @@ const SearchingPageMessages = () => [
 ]
 
 const PostSearchPageMessages = () => [
-    'Approximate Travel Time For Each Person',
+    'Average Travel Time For Each Person',
     'Approximate Postcode In The Middle'
 ]
 
@@ -52,13 +52,14 @@ const extractAddress = (address_components) => {
 }
 
 const WhatsApp = (currentState) => {
-    let domainToForward = 'https://4e4b8126.ngrok.io'
+    let domainToForward = 'https://27c418c4.ngrok.io'
     let urlPrep = `whatsapp://send?text=${domainToForward}/results?`
     urlPrep += `duration=${currentState.duration}:`
     urlPrep += `postcode=${currentState.postcode}:`
     urlPrep += `places=${
         currentState.places.filter(place => place.selected).map(place => place.place_id)
-        }`
+        }:`
+    urlPrep += `postcodes=${currentState.postcodes}`
     return urlPrep
 }
 
@@ -82,11 +83,11 @@ const bringPlacesObjects = (placesIdsArray) => {
                 if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                     place.photosURL = []
                     //BUGFIX sometimes places.photos does not exist
-                    if (place.photos) {
-                        for (const photo of place.photos) {
-                            place.photosURL.push(photo.getUrl({ maxHeight: 50 }))
-                        }
-                    }
+                    // if (place.photos) {
+                    //     for (const photo of place.photos) {
+                    //         place.photosURL.push(photo.getUrl({ maxHeight: 50 }))
+                    //     }
+                    // }
                     place.selected = true
                     place.postcode = API.extractPostCode(place.address_components).replace(/\s+/g, '')
                     API.lookUpAPostCode(place.postcode)
@@ -110,8 +111,9 @@ const presentationDetailsFromQuery = (query) => {
     const params = new URLSearchParams(query.replace(/:/g, '&'))
     const durationInput = params.get('duration')
     const postcodeInput = params.get('postcode')
-    const placesInput = params.get('places').split(',')
-    return { duration: durationInput, postcode: postcodeInput, places: placesInput }
+    const postcodesInput = params.get('postcodes') ? params.get('postcodes').split(',') : null
+    const placesInput = params.get('places') ? params.get('places').split(',') : null
+    return { duration: durationInput, postcodes: postcodesInput, postcode: postcodeInput, places: placesInput }
 }
 
 const bringNearBySearchResults = (locationObj, keywordReceived, radius = 1000) => {
@@ -189,14 +191,14 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
             })
         })
         arrayOfAllCoordinates.forEach(item => {
-            item.distanceFromMid = Math.sqrt( 
-                Math.pow((item.latitude-midPointLatitude),2) 
-                + Math.pow((item.longitude-midPointLatitude),2) 
-                )
+            item.distanceFromMid = Math.sqrt(
+                Math.pow((item.latitude - midPointLatitude), 2)
+                + Math.pow((item.longitude - midPointLatitude), 2)
+            )
         })
         //NOTE TO SELF: START FROM HERE. Midpoint calculation might be wrong!
         console.log('arrayOfAllCoordinates ', arrayOfAllCoordinates)
-        console.log('midpoint: ',{ latitude: midPointLatitude, longitude: midPointLongitude })
+        console.log('midpoint: ', { latitude: midPointLatitude, longitude: midPointLongitude })
         //find each unit by simply dividing the difference in between midpoint and the furthest point (of long and then lat) to 100
         // use that u x N to find 4 more points
         //get the distance matrix
@@ -206,11 +208,18 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
     }
 }
 
+const spaceFillerArray = (n) => {
+    let arr = [];
+    for (let i = 0; i <= n; i++) {
+        arr = arr.concat(i);
+    };
+    return arr
+}
 const contentForEncouragingText = () => [
     'Meet with friends!',
-    'Similar travel time for all',
-    'Carefully selected places',
+    'In the middle',
+    'In carefully selected places',
     'Start here...'
 ]
 
-export default { contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+export default { spaceFillerArray, contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

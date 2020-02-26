@@ -17,11 +17,12 @@ export default class PlaceCard extends React.Component {
     }
 
     render() {
-        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, longitude, latitude, url } = this.props.place
+        const { name, formatted_address, rating, user_ratings_total, international_phone_number, place_id, selected, longitude, latitude, url,photos } = this.props.place
         return (
             <React.Fragment>
                 <div className="place-card-each wrapper">
-                    <img src={this.props.place.photosURL[0]} alt='' />
+                    {/* <img src={this.props.place.photosURL[0]} alt='' /> */}
+                    <img src={photos ? photos[0].getUrl({ maxHeight: 50 }) :null} alt='' />
                     <h4>{name}</h4>
                     <h5>{formatted_address}</h5>
                     <h5>Rating: {rating}</h5>

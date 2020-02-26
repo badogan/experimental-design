@@ -5,12 +5,14 @@ import ApproxPostcodeComm from '../components/ApproxPostcodeComm'
 import PlaceCard from '../components/PlaceCard'
 import WhatsAppButton from '../components/WhatsAppButton'
 import API from '../API'
+import RestartProcess from '../components/RestartProcess'
 
 export default class PostSearchPage extends React.Component {
 
     state = {
         duration: null,
-        places: []
+        places: [],
+        postcodes: Helper.presentationDetailsFromQuery(this.props.location.search).postcodes.join(',')
     }
 
     handleWhatsAppClick = () => {
@@ -30,6 +32,13 @@ export default class PostSearchPage extends React.Component {
             resolve()
         }
         )
+    }
+
+    restartPath = () =>{
+        //construct url
+        let url = '/?'
+        url += `postcodes=${Helper.presentationDetailsFromQuery(this.props.location.search).postcodes.join(',')}`
+        return url
     }
 
     componentDidMount() {
@@ -79,6 +88,10 @@ export default class PostSearchPage extends React.Component {
                 <br />
                 <div>
                     <WhatsAppButton handleWhatsAppClick={this.handleWhatsAppClick} />
+                </div>
+                <div>
+                    <br/>
+                    <RestartProcess path={this.restartPath()}/>
                 </div>
             </React.Fragment>
         )

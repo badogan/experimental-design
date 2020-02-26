@@ -5,7 +5,7 @@ export default class PlaceTypesDropDown extends React.Component {
         return (
             <React.Fragment>
                 <form className='place-type-dropdown'>
-                    <label>Please select place type:</label>
+                    <label>Click for place type:</label>
                     <select onChange={(e) => this.props.handlePlaceTypeSelection(e.target.value)}>
                         <option value="Pub">> Pub</option>
                         <option value="Restaurant">> Restaurant</option>

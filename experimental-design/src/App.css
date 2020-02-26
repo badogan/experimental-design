@@ -96,33 +96,61 @@ body {
   padding: 8px;
   margin: 1px;
   border-radius: 1vh;
+  width: 10vh;
 }
+
+.each-card-delete-button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.each-card-delete-X {
+  color:#FF1654;
+  font-size: 14px;
+  font-weight:400;
+}
+
 
 .postcode-entry-group {
   display: flex;
   flex-direction: row;
-  padding: 8px;
+  justify-content: center;
+  padding: 10px;
   margin: 1px;
+  width: 100%;
+}
+
+.form22 {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  justify-content: space-between;
 }
 
 .postcode-text-input-field {
+  flex-grow: 10;
   padding: 6px;
   margin: 1px;
   background-color: #F3FFBD;
+  width: 100%;
 }
 .postcode-add-button {
   /* border:0.1em; */
   /* border-radius: 1vh; */
   /* padding: 8px; */
   /* margin: 1px; */
+  display: flex;
+  width: 30%;
+  align-self: center;
   display:inline-block;
-  padding:0.3em 1.2em;
+  padding:.5em 1.2em;
   margin:0 0.3em 0.3em 0;
   border-radius:2em;
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
-  font-weight:600;
+  font-weight:400;
   color:#FFFFFF;
   background-color:#FF1654;
   text-align:center;
@@ -154,7 +182,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 14px;
+  padding: 10px;
   margin: 8px;
 }
 
@@ -163,7 +191,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 14px;
+  padding: 10 px;
   margin: 8px;
 }
 
@@ -179,13 +207,13 @@ body {
 .button-magic-formatting {
   /* border:0.1em solid green; */
   display:inline-block;
-  padding:0.3em 1.2em;
+  padding:1.3em 1.2em;
   margin:0 0.3em 0.3em 0;
   border-radius:2em;
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
-  font-weight:600;
+  font-weight:500;
   color:#FFFFFF;
   background-color:#FF1654;
   text-align:center;
@@ -245,7 +273,13 @@ body {
 }
 
 .whatsapp-button {
-  border:0.1em solid red;
+  /* border:0.1em solid red; */
+  background-color: #09cd18;
+  color: #fff;
+  padding: 10px;
+  font-family: "sans-serif" ;
+  font-size: 14px;
+  font-weight:800;
 }
 
 .google-maps-button{
@@ -254,6 +288,11 @@ body {
 
 .city-mapper-button {
   border:0.1em solid purple;
+}
+
+.textarea-to-be-hidden {
+  /* visibility: hidden; */
+  display: none;
 }
 
 
