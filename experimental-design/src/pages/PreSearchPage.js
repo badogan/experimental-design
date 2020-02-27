@@ -1,7 +1,5 @@
 import React from 'react'
 
-import API from '../API'
-
 import EncouragingText from '../components/EncouragingText'
 import PostcodeCard from '../components/PostcodeCard'
 import PostcodeInput from '../components/PostcodeInput'

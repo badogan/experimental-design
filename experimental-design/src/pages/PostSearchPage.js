@@ -4,7 +4,6 @@ import KeyDataComm from '../components/KeyDataComm'
 import ApproxPostcodeComm from '../components/ApproxPostcodeComm'
 import PlaceCard from '../components/PlaceCard'
 import WhatsAppButton from '../components/WhatsAppButton'
-import API from '../API'
 import RestartProcess from '../components/RestartProcess'
 
 export default class PostSearchPage extends React.Component {
@@ -42,7 +41,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        true && this.presentPlacesAndFurtherOptions().then(() => {
+        false && this.presentPlacesAndFurtherOptions().then(() => {
             if (Helper.presentationDetailsFromQuery(this.props.location.search).postcode.toString() === 'null') {
                 this.setState({ postcode: this.state.places[0].postcode })
             } else {

@@ -183,7 +183,7 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
             midPointLongitude = midPointLongitude + (response.result.longitude / responsesForLongLatForOriginPostcodes.length)
         })
         let arrayOfAllCoordinates = []
-        responsesForLongLatForOriginPostcodes.map(response => {
+        responsesForLongLatForOriginPostcodes.forEach(response => {
             arrayOfAllCoordinates.push({
                 latitude: response.result.latitude,
                 longitude: response.result.longitude,
