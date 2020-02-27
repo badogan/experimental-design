@@ -2,13 +2,17 @@ import React from "react";
 import API from "../API";
 import ShowMessage from "../components/ShowMessage";
 import Helper from "../Helper";
+import PostSearchTrigger from "../components/PostSearchTrigger";
 
 export default class SearchingPage extends React.Component {
   state = {
     showStep0: false,
     showStep1: false,
     showStep2: false,
-    showStep3: false
+    showStep3: false,
+    showStep4: false,
+    showStep5: false,
+    triggerPostSearch: false
   };
 
   componentDidMount() {
@@ -30,6 +34,7 @@ export default class SearchingPage extends React.Component {
       )
     )
       .then(responsesForAllPostcodes => {
+        this.setState({ showStep1: true });
         responsesForAllPostcodes.forEach(response => {
           this.props.populateOriginsArray({
             latitude: response.result.latitude,
@@ -48,23 +53,12 @@ export default class SearchingPage extends React.Component {
           this.props.updateMidPointLongLat(midPointObj);
           resolve(midPointObj);
         });
-        // let midPointLatitude = 0
-        // let midPointLongitude = 0
-        // responsesForAllPostcodes.forEach(response => {
-        //     midPointLatitude = midPointLatitude + (response.result.latitude / responsesForAllPostcodes.length)
-        //     midPointLongitude = midPointLongitude + (response.result.longitude / responsesForAllPostcodes.length)
-        // })
-        // let midPointObj = { latitude: midPointLatitude, longitude: midPointLongitude }
-        // this.props.updateMidPointLongLat(midPointObj)
-        // return (midPointObj)
       })
       .then(midPointObj => {
-        this.setState({ showStep1: true });
-        console.log(midPointObj);
+        this.setState({ showStep2: true });
         return API.getNearestPostCode(midPointObj);
       })
       .then(closestPostCodeObject => {
-        console.log("closestPostCodeObject ", closestPostCodeObject);
         if (closestPostCodeObject.status === 200) {
           if (closestPostCodeObject.result !== null) {
             this.props.updateMidPointPostcode(
@@ -89,7 +83,6 @@ export default class SearchingPage extends React.Component {
         console.log("distance matrix object: ", object);
         if (object.status === "OK") {
           object.response.rows.forEach(row => {
-            // console.log("the row is...", row);
             if (row.elements[0].status !== "ZERO_RESULTS") {
               this.props.updateDurations(row.elements[0].duration.value / 60);
             } else {
@@ -129,7 +122,7 @@ export default class SearchingPage extends React.Component {
       //     })
       // })
       .then(() => {
-        this.setState({ showStep2: true });
+        this.setState({ showStep3: true });
         let locationObj = {
           lat: this.props.searchingMidPointLongLat.latitude,
           lng: this.props.searchingMidPointLongLat.longitude
@@ -171,35 +164,76 @@ export default class SearchingPage extends React.Component {
         // })
       })
       .then(object => {
+        this.setState({
+          showStep4: true,
+          showStep5: true
+        });
         const chosenPlaces = Helper.decideOnTheItemsToPresent(object.results);
         this.props.updateItemsToPresent(
           chosenPlaces.map(place => place.place_id)
         );
       })
       .then(() => {
-        this.setState({ showStep3: true });
-        this.props.updateConstructedURL();
+        this.setState({ triggerPostSearch: true });
+        // this.props.updateConstructedURL();
       });
   };
 
   render() {
+    const messages = Helper.SearchingPageMessages();
+    const {
+      showStep0,
+      showStep1,
+      showStep2,
+      showStep3,
+      showStep4,
+      showStep5,
+      triggerPostSearch
+    } = this.state;
+    const { updateConstructedURL } = this.props;
     return (
       <React.Fragment>
-        <h2>Please wait ...</h2>
         <br />
-        {this.state.showStep0 && (
-          <ShowMessage message={Helper.SearchingPageMessages()[0]} />
+        {showStep0 && (
+          <ShowMessage nextstep={showStep1} key={0} message={messages[0]} />
         )}
-        {this.state.showStep1 && (
-          <ShowMessage message={Helper.SearchingPageMessages()[1]} />
+        {showStep1 && (
+          <ShowMessage nextstep={showStep2} key={1} message={messages[1]} />
         )}
-        {this.state.showStep2 && (
-          <ShowMessage message={Helper.SearchingPageMessages()[2]} />
+        {showStep2 && (
+          <ShowMessage nextstep={showStep3} key={2} message={messages[2]} />
         )}
-        {this.state.showStep3 && (
-          <ShowMessage message={Helper.SearchingPageMessages()[3]} />
+        {showStep3 && (
+          <ShowMessage nextstep={showStep4} key={3} message={messages[3]} />
         )}
+        {showStep4 && (
+          <ShowMessage nextstep={showStep5} key={4} message={messages[4]} />
+        )}
+        {showStep5 && (
+          <ShowMessage
+            nextstep={triggerPostSearch}
+            key={5}
+            message={messages[5]}
+          />
+        )}
+        {triggerPostSearch && (
+          <PostSearchTrigger updateConstructedURL={updateConstructedURL} />
+        )}
+        <div className="spacefiller">
+          {Helper.spaceFillerArray(40).map((k, i) => (
+            <div key={i}>
+              {" "}
+              <br />
+            </div>
+          ))}
+        </div>
       </React.Fragment>
     );
   }
 }
+
+// <div className="encourage-text-div wrapper">
+// {content.map((text,index)=><EncouragingText key={index} content={text} populateWithSomeRandomPostcode={populateWithSomeRandomPostcode}/>)}
+// </div>
+
+// {content.map((text,index)=><EncouragingText key={index} content={text} populateWithSomeRandomPostcode={populateWithSomeRandomPostcode}/>)}

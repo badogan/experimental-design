@@ -131,9 +131,10 @@ body {
 .postcode-text-input-field {
   flex-grow: 10;
   padding: 6px;
-  margin: 1px;
+  margin: 10px;
   background-color: #F3FFBD;
   width: 100%;
+  font-size: 13px;
 }
 .postcode-add-button {
   /* border:0.1em; */
@@ -141,16 +142,17 @@ body {
   /* padding: 8px; */
   /* margin: 1px; */
   display: flex;
+  font-size: 13px;
   width: 30%;
   align-self: center;
   display:inline-block;
-  padding:.5em 1.2em;
+  padding: 0.5em 1.2em;
   margin:0 0.3em 0.3em 0;
   border-radius:2em;
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
-  font-weight:400;
+  font-weight:800;
   color:#FFFFFF;
   background-color:#FF1654;
   text-align:center;
@@ -206,6 +208,8 @@ body {
 
 .button-magic-formatting {
   /* border:0.1em solid green; */
+  display: flex;
+  font-size: 14px;
   display:inline-block;
   padding:1.3em 1.2em;
   margin:0 0.3em 0.3em 0;
@@ -213,33 +217,101 @@ body {
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Roboto',sans-serif;
-  font-weight:500;
+  font-weight:800;
   color:#FFFFFF;
   background-color:#FF1654;
   text-align:center;
   transition: all 0.2s;
 }
 /* Searching Page */
-.presearch-container {
+.searching-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-content: center;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
 }
+
+.searching-showmessage {
+  display: flex;
+  align-items: baseline;
+}
+
+.blink_text {
+
+  animation:1s blinker linear infinite;
+  -webkit-animation:1s blinker linear infinite;
+  -moz-animation:1s blinker linear infinite;
+
+   /* color: red; */
+  }
+
+  @-moz-keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+  @-webkit-keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+  @keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+.check-for-message {
+  font-size: 20px;
+}
+
+.button-postsearch-trigger {
+  display: flex;
+  font-size: 14px;
+  display:inline-block;
+  padding:1.8em 1.8em;
+  margin:10 0.3em 0.3em 10;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
+  width: 80%
+}
+
+/* PostSearch Page */
+
+/* display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+align-content: center;
+/* border: 1px solid black; */
 
 .postsearch-container {
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #70C1B3 ;
 }
-
-/* PostSearch Page */
 .key-data-comm-group {
   display:flex;
   flex-direction: row;
   justify-content: space-around;
-  border:0.1em solid blue;
+  /* border:0.1em solid blue; */
+  padding:0em 0em;
+  margin:0 0em 0em 0;
+  width: 100% ;
 }
 
 .key-data-each {
@@ -247,14 +319,27 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border:0.1em solid blue;
+  border:0.0em solid #F3FFBD;
+  text-align:center;
+  /* padding:0.1em 0.1em; */
+  /* margin:1 1em 1em 1; */
+  width:40%;
+}
+
+.key-data-each h3 {
+  padding:0.1em 0.0em;
+  margin:0.5em 0em 0em 0;
+}
+
+.key-data-each h2 {
+  /* padding:0.1em 0.0em; */
+  margin:0.5em 0em 1em 0;
 }
 
 .place-cards-all {
   display:flex;
   flex-direction: row;
-  justify-content: space-around;
-  border:0.1em solid green;
+  justify-content: space-evenly;
 }
 
 .place-card-each {
@@ -262,14 +347,77 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* border: 0.5rem outset pink; */
-  outline: 0.1rem solid khaki;
-  /* box-shadow: 0 0 0 2rem skyblue;
-  border-radius: 12px;
-  font: bold 1rem sans-serif;
-  margin: 2rem;
-  padding: 1rem;
-  outline-offset: 0.5rem; */
+  outline: 0.1rem solid #B2DBBF;
+  border-radius: 5em;
+}
+
+.place-card-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding:2em 2em; */
+  /* margin:0 0em 0em 0; */
+  /* outline: 0.1rem solid khaki; */
+  min-height: 11vh;
+  max-height: 11vh;
+}
+
+.place-card-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 6vh;
+  max-height: 6vh;
+  font-weight:400;
+  font-size: 11px;
+}
+
+.place-card-formatted_address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 7vh;
+  max-height: 7vh;
+  text-align:center;
+}
+
+.place-card-rating{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 5vh;
+  text-align:center;
+}
+
+.place-card-user_ratings_total{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 3vh;
+  max-height: 3vh;
+  text-align:center;
+}
+
+.place-card-international_phone_number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 4vh;
+  max-height: 4vh;
+  text-align:center; 
+}
+
+.place-card-select-checkbox{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 5vh;
+  text-align:center; 
 }
 
 .whatsapp-button {
@@ -282,13 +430,66 @@ body {
   font-weight:800;
 }
 
-.google-maps-button{
-  border:0.1em solid green;
+.restart-process {
+  display: flex;
+  font-size: 13px;
+  padding:1em 1em;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
 }
 
-.city-mapper-button {
-  border:0.1em solid purple;
+.google-maps-button-div{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 8vh;
+  text-align:center; 
 }
+.google-maps-button{
+  display: flex;
+  font-size: 9px;
+  width: 90%;
+  align-self: center;
+  display:inline-block;
+  padding: 0.5em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#247BA0;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+.city-mapper-button-div{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 6vh;
+  text-align:center; 
+}
+.city-mapper-button{
+  display: flex;
+  font-size: 9px;
+  width: 90%;
+  align-self: center;
+  display:inline-block;
+  padding: 0.5em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#247BA0;
+  text-align:center;
+  transition: all 0.2s;
+}
+
 
 .textarea-to-be-hidden {
   /* visibility: hidden; */

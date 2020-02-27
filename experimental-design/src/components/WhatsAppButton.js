@@ -5,7 +5,7 @@ export default class WhatsAppButton extends React.Component {
         return (
             <React.Fragment>
                 <button className="whatsapp-button" onClick={()=>this.props.handleWhatsAppClick()}>
-                    WhatsApp Share Selected Places
+                    Share Selected Places via WhatsApp
                 </button>
             </React.Fragment>
         )

@@ -41,7 +41,7 @@ export default class PostSearchPage extends React.Component {
     }
 
     componentDidMount() {
-        false && this.presentPlacesAndFurtherOptions().then(() => {
+        true && this.presentPlacesAndFurtherOptions().then(() => {
             if (Helper.presentationDetailsFromQuery(this.props.location.search).postcode.toString() === 'null') {
                 this.setState({ postcode: this.state.places[0].postcode })
             } else {
@@ -72,7 +72,7 @@ export default class PostSearchPage extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="key-data-comm-group wrapper">
+                <div className="key-data-comm-group">
                     <div className="key-data-each wrapper">
                         <KeyDataComm content={Helper.processDuration(this.state.duration)} message={Helper.PostSearchPageMessages()[0]} />
                     </div>
@@ -81,16 +81,19 @@ export default class PostSearchPage extends React.Component {
                             content={this.state.postcode} message={Helper.PostSearchPageMessages()[1]} />}
                     </div>
                 </div>
-                <div className="place-cards-all wrapper">
+                <div className="place-cards-all">
                     {this.state.places.length !== 0 ? this.state.places.map(place => <PlaceCard key={place.place_id} place={place} handleSelect={this.handleSelect} />) : null}
                 </div>
                 <br />
                 <div>
                     <WhatsAppButton handleWhatsAppClick={this.handleWhatsAppClick} />
                 </div>
-                <div>
+                <div className="restart-process">
                     <br/>
                     <RestartProcess path={this.restartPath()}/>
+                </div>
+                <div className="spacefiller">
+                    {Helper.spaceFillerArray(40).map((k,i) => <div key={i}> <br /></div>)}
                 </div>
             </React.Fragment>
         )

@@ -6,11 +6,22 @@ async function checkIfNull(x) {
     return true && (x === null)
 }
 
+const sleep = (milliseconds) => {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+    return true
+  }
+
 const SearchingPageMessages = () => [
-    'Calculating midpoint ...',
-    'Assessing midpoint postcode ...',
-    'Shortlisting places ...',
-    'Generating links for WhatsApp, CityMapper, Google Maps ...'
+    'Finding postcode coordinates...',
+    'Deciding on midpoint coordinates...',
+    'Assessing midpoint postcode...',
+    'Shortlisting places...',
+    'Deciding on places to present...',
+    'Finalizing places details and links...'
 ]
 
 const PostSearchPageMessages = () => [
@@ -52,7 +63,7 @@ const extractAddress = (address_components) => {
 }
 
 const WhatsApp = (currentState) => {
-    let domainToForward = 'https://27c418c4.ngrok.io'
+    let domainToForward = 'https://ff7f22d3.ngrok.io'
     let urlPrep = `whatsapp://send?text=${domainToForward}/results?`
     urlPrep += `duration=${currentState.duration}:`
     urlPrep += `postcode=${currentState.postcode}:`
@@ -222,4 +233,4 @@ const contentForEncouragingText = () => [
     'Start here...'
 ]
 
-export default { spaceFillerArray, contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }
+export default { sleep, spaceFillerArray, contentForEncouragingText, decideOnTheMidPointObject, bringDistanceMatrix, bringNearBySearchResults, CityMapper, presentationDetailsFromQuery, bringPlacesObjects, checkIfNull, WhatsApp, extractAddress, processDuration, SearchingPageMessages, PostSearchPageMessages, decideOnTheItemsToPresent }

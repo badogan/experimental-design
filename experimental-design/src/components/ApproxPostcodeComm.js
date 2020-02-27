@@ -2,10 +2,15 @@ import React from "react";
 import { ToastsContainer, ToastsStore } from "react-toasts";
 
 export default class KeyDataComm extends React.Component {
-
   copyCodeToClipboard = () => {
-    this.textArea.select();
+    const textField = document.createElement("textarea");
+    document.querySelector('.key-data-each').appendChild(textField);
+    // document.body.append(textField);
+    textField.value = this.props.content;
+    textField.focus();
+    textField.select();
     document.execCommand("copy");
+    textField.remove();
     ToastsStore.success("Copied to clipboard!");
   };
 
@@ -13,14 +18,7 @@ export default class KeyDataComm extends React.Component {
     return (
       <React.Fragment>
         <h3>{this.props.message}</h3>
-        <h2 onClick={() => this.copyCodeToClipboard()}>
-          {this.props.content}
-        </h2>
-        <textarea onClick={() => this.copyCodeToClipboard()}
-          className="textarea-to-be-hidden"
-          ref={textarea => (this.textArea = textarea)}
-          value={this.props.content}
-        />
+        <h2 onClick={() => this.copyCodeToClipboard()}>{this.props.content}</h2>
         <ToastsContainer store={ToastsStore} />
       </React.Fragment>
     );

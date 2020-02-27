@@ -21,6 +21,9 @@ export default class PreSearchPage extends React.Component {
                 <div className="encourage-text-div wrapper">
                     {content.map((text,index)=><EncouragingText key={index} content={text} populateWithSomeRandomPostcode={populateWithSomeRandomPostcode}/>)}
                 </div>
+                <div className="postcode-entry-group">
+                    <PostcodeInput presearchEnteredPostcodes={presearchEnteredPostcodes} addPostcode={addPostcode} />
+                </div>
                 <div className="postcode-cards wrapper">
                     {presearchEnteredPostcodes.map((postcode, index) => <PostcodeCard key={index} data={postcode} deletePostcode={deletePostcode} />)}
                 </div>
@@ -32,9 +35,7 @@ export default class PreSearchPage extends React.Component {
                         ? <PlaceTypesDropDown handlePlaceTypeSelection={handlePlaceTypeSelection} />
                         : null}
                 </div>
-                <div className="postcode-entry-group">
-                    <PostcodeInput presearchEnteredPostcodes={presearchEnteredPostcodes} addPostcode={addPostcode} />
-                </div>
+                
                 <div className="buttons-add-and-magic">
                     {presearchEnteredPostcodes.length > 1
                         ? <SearchInitiation initiateSearching={initiateSearching} />
