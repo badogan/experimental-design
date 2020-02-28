@@ -7,6 +7,7 @@ import TravelModeRadioButtons from '../components/TravelModeRadioButtons'
 import PlaceTypesDropDown from '../components/PlaceTypesDropDown'
 import SearchInitiation from '../components/SearchInitiation'
 import Helper from '../Helper'
+import API from '../API'
 
 export default class PreSearchPage extends React.Component {
 

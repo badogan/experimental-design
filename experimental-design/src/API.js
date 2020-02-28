@@ -2,10 +2,12 @@ const lookUpAPostCodeURL = 'https://api.postcodes.io/postcodes/'
 const getNearestPostCodeURL = 'https://api.postcodes.io/postcodes?'
 const validatePostCodeURL_P1 = 'https://api.postcodes.io/postcodes/'
 const randomPostCodeURL = 'https://api.postcodes.io/random/postcodes'
+const serverlessAPIForMiddleInTheMiddleURL = 'https://e5ucmo7jmf.execute-api.eu-west-2.amazonaws.com/default/nodeFunction1'
 // ===============
 
 
 const getSimple = (url) => fetch(url).then(resp => resp.json())
+ 
 // NOT WORKING BELOW ================
 
 const getPlacesCoreCode = (requestObject) => {
@@ -51,7 +53,7 @@ const getNearestPostCode = (object) => getSimple(`${getNearestPostCodeURL}lon=${
 const validatePostCode = (postcode) => getSimple(`${validatePostCodeURL_P1}${postcode}/validate`)
 const getARandomPostcode = () => getSimple(randomPostCodeURL).then(data => data.result.postcode)
 // FUNCTIONAL - NOT SURE IF THEY NEED TO BE HERE OR IN SOME OTHER API-LIKE STRUCTURE
-
+const getConfigFromServerless = () => getSimple(`${serverlessAPIForMiddleInTheMiddleURL}`)
 const searchingMessages = () => [
   'Calculating midpoint ...',
   'Assessing midpoint postcode ...',
@@ -60,4 +62,4 @@ const searchingMessages = () => [
 ]
 // FUNCTIONAL APIs ABOVE
 
-export default { postToBackend, getPlaces, lookUpAPostCode, getNearestPostCode, constructPhotoLink, extractPostCode, validatePostCode, searchingMessages, getARandomPostcode }
+export default { getConfigFromServerless, postToBackend, getPlaces, lookUpAPostCode, getNearestPostCode, constructPhotoLink, extractPostCode, validatePostCode, searchingMessages, getARandomPostcode }
