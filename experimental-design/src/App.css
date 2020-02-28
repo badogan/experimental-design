@@ -244,8 +244,6 @@ body {
   animation:1s blinker linear infinite;
   -webkit-animation:1s blinker linear infinite;
   -moz-animation:1s blinker linear infinite;
-
-   /* color: red; */
   }
 
   @-moz-keyframes blinker {  
@@ -289,13 +287,6 @@ body {
 }
 
 /* PostSearch Page */
-
-/* display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-align-content: center;
-/* border: 1px solid black; */
 
 .postsearch-container {
   display:flex;
@@ -348,7 +339,8 @@ align-content: center;
   align-items: center;
   justify-content: center;
   outline: 0.1rem solid #B2DBBF;
-  border-radius: 5em;
+  border-radius: 25px;
+  width: 45%;
 }
 
 .place-card-img{

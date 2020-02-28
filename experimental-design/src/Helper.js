@@ -31,7 +31,7 @@ const PostSearchPageMessages = () => [
 
 const decideOnTheItemsToPresent = (allItems) => {
     // console.log("allitems: ", allItems)
-    let maxNumberOfResults = 3
+    let maxNumberOfResults = 2
     let targetGroup = allItems.sort((a, b) => a.user_ratings_total > b.user_ratings_total ? -1 : 1).sort((a, b) => a.rating > b.rating ? -1 : 1)
     if (targetGroup.length >= maxNumberOfResults) {
         return (targetGroup.slice(0, maxNumberOfResults))
@@ -63,7 +63,7 @@ const extractAddress = (address_components) => {
 }
 
 const WhatsApp = (currentState) => {
-    let domainToForward = 'https://ff7f22d3.ngrok.io'
+    let domainToForward = 'https://16b5962a.ngrok.io'
     let urlPrep = `whatsapp://send?text=${domainToForward}/results?`
     urlPrep += `duration=${currentState.duration}:`
     urlPrep += `postcode=${currentState.postcode}:`
@@ -207,7 +207,6 @@ const decideOnTheMidPointObject = (responsesForLongLatForOriginPostcodes, algoVe
                 + Math.pow((item.longitude - midPointLatitude), 2)
             )
         })
-        //NOTE TO SELF: START FROM HERE. Midpoint calculation might be wrong!
         console.log('arrayOfAllCoordinates ', arrayOfAllCoordinates)
         console.log('midpoint: ', { latitude: midPointLatitude, longitude: midPointLongitude })
         //find each unit by simply dividing the difference in between midpoint and the furthest point (of long and then lat) to 100

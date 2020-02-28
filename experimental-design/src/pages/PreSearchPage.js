@@ -11,7 +11,6 @@ import Helper from '../Helper'
 export default class PreSearchPage extends React.Component {
 
     componentDidMount() {
-        //put a new function to update entered postcodes (if they exist in the uRL)
     }
 
     render() {
