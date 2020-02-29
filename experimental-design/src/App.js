@@ -6,6 +6,7 @@ import Helper from './Helper'
 import PreSearchPage from './pages/PreSearchPage'
 import SearchingPage from './pages/SearchingPage'
 import PostSearchPage from './pages/PostSearchPage'
+import NotAvailablePage from './pages/NotAvailablePage';
 
 const default_state = {
   // presearchEnteredPostcodes: [],
@@ -17,7 +18,8 @@ const default_state = {
   searchingMidPointLongLat: null,
   searchingMidPointPostcode: null, //Populate after search process completed only if available
   searchingDurations: [],
-  searchingItemsToPresent: []
+  searchingItemsToPresent: [],
+  notAvailable: false
 }
 
 class App extends React.Component {
@@ -27,6 +29,9 @@ class App extends React.Component {
   }
   
   componentDidMount() {
+    API.getConfigFromServerless().then(obj=>{
+      if (obj.panic.status) {this.handleNotAvailable()}
+    })
     const queryObject = Helper.presentationDetailsFromQuery(this.props.location.search)
     if (queryObject.postcodes) {
       this.setState({
@@ -63,6 +68,10 @@ class App extends React.Component {
   failure = () => null
   getRandomPostcode = () => API.getARandomPostcode()
   //RANDOM POSTCODE FUNCTIONALITY
+
+  // START: NotAvailable related
+  handleNotAvailable = () => this.setState({notAvailable:true},(()=>this.props.history.push('/notavailable')))
+  // END
 
   //// START: Searching Related
   initiateSearching = () => {
@@ -115,7 +124,7 @@ class App extends React.Component {
           <div className="presearch-container wrapper">
             <Route exact path="/" render={routerProps => {
               // console.log('presearch hitting /',routerprops)
-              return <PreSearchPage
+              return !this.state.notAvailable && <PreSearchPage
                 content={Helper.contentForEncouragingText()} //EncouragingText
                 populateWithSomeRandomPostcode={this.populateWithSomeRandomPostcode}
                 presearchEnteredPostcodes={this.state.presearchEnteredPostcodes}
@@ -158,6 +167,12 @@ class App extends React.Component {
                 {...routerProps}
               />
             }} />
+          </div>
+          
+          <div>
+            <Route path="/notavailable" render={routerProps=> {
+            return this.state.notAvailable && <NotAvailablePage {...routerProps} />
+          }} />
           </div>
 
         </div>
