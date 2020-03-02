@@ -1,4 +1,4 @@
-/search /search
-/results /results
-/notavailable /notavailable
+/search/* /search/:splat
+/results/* /results/:splat
+/notavailable/* /notavailable/:splat
 /* /index.html  200
