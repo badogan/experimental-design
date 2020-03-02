@@ -23,8 +23,7 @@ const default_state = {
   searchingMidPointLongLat: null,
   searchingMidPointPostcode: null, //Populate after search process completed only if available
   searchingDurations: [],
-  searchingItemsToPresent: [],
-  notAvailable: false
+  searchingItemsToPresent: []
 };
 
 class App extends React.Component {
@@ -74,7 +73,7 @@ class App extends React.Component {
     scriptTag.type = "text/javascript";
     scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_KEY}&libraries=places`;
     document.head.append(scriptTag);
-  }
+  };
 
   // RANDOM POSTCODE
   populateWithSomeRandomPostcode = () =>
@@ -92,10 +91,7 @@ class App extends React.Component {
   //RANDOM POSTCODE FUNCTIONALITY
 
   // START: NotAvailable related
-  handleNotAvailable = () =>
-    this.setState({ notAvailable: true }, () =>
-      this.props.history.push("/notavailable")
-    );
+  handleNotAvailable = () => this.props.history.push("/notavailable");
   // END
 
   //// START: Searching Related
@@ -179,23 +175,21 @@ class App extends React.Component {
               render={routerProps => {
                 // console.log('presearch hitting /',routerprops)
                 return (
-                  !this.state.notAvailable && (
-                    <PreSearchPage
-                      content={Helper.contentForEncouragingText()} //EncouragingText
-                      populateWithSomeRandomPostcode={
-                        this.populateWithSomeRandomPostcode
-                      }
-                      presearchEnteredPostcodes={
-                        this.state.presearchEnteredPostcodes
-                      }
-                      deletePostcode={this.deletePostcode}
-                      addPostcode={this.addPostcode}
-                      handleRadioSelection={this.handleRadioSelection}
-                      stateOfCar={this.state.presearchRadioCar}
-                      handlePlaceTypeSelection={this.handlePlaceTypeSelection}
-                      initiateSearching={this.initiateSearching}
-                    />
-                  )
+                  <PreSearchPage
+                    content={Helper.contentForEncouragingText()} //EncouragingText
+                    populateWithSomeRandomPostcode={
+                      this.populateWithSomeRandomPostcode
+                    }
+                    presearchEnteredPostcodes={
+                      this.state.presearchEnteredPostcodes
+                    }
+                    deletePostcode={this.deletePostcode}
+                    addPostcode={this.addPostcode}
+                    handleRadioSelection={this.handleRadioSelection}
+                    stateOfCar={this.state.presearchRadioCar}
+                    handlePlaceTypeSelection={this.handlePlaceTypeSelection}
+                    initiateSearching={this.initiateSearching}
+                  />
                 );
               }}
             />
@@ -245,11 +239,7 @@ class App extends React.Component {
             <Route
               path="/notavailable"
               render={routerProps => {
-                return (
-                  this.state.notAvailable && (
-                    <NotAvailablePage {...routerProps} />
-                  )
-                );
+                return <NotAvailablePage {...routerProps} />;
               }}
             />
           </div>

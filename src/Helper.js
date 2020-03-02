@@ -73,7 +73,7 @@ const extractAddress = address_components => {
 };
 
 const WhatsApp = currentState => {
-  let domainToForward = "https://5e5d35745df1b0017d3292a3--friendly-allen-734a93.netlify.com";
+  let domainToForward = window.location.origin;
   let urlPrep = `whatsapp://send?text=${domainToForward}/results?`;
   urlPrep += `duration=${currentState.duration}:`;
   urlPrep += `postcode=${currentState.postcode}:`;
