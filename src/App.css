@@ -1,0 +1,539 @@
+/* Global resets */
+
+*,
+*::before,
+*::after {
+  margin: 5;
+  padding: 3;
+  box-sizing: inherit
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 62.5%;
+  /* font-family: "Montserrat", "sans-serif"; */
+  font-family: 'Source Code Pro',  "sans-serif";
+}
+
+/* Wrapper */
+
+.wrapper {
+  margin: 0 auto;
+  width: 95%;
+  max-width: 960px;
+}
+
+.App {
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  border: 1px solid black;
+  background-color: #247BA0;
+}
+
+.logo {
+  
+}
+
+.logo h5 {
+  font-family: "Bungee Shade",  "sans-serif" ;
+  font-size: 55px;
+  text-shadow: 2px 2px 2px #aaa;
+  margin: 1px;
+  height: inherit;
+}
+
+/* Notavailable Page */
+.notavailable-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
+}
+
+/* Presearch Page */
+.presearch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
+  height: 100%;
+}
+
+.encourage-text-div {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: #70C1B3 ;
+}
+
+.encourage-text-each {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
+  align-content: center;
+  color: FF1654;
+}
+
+.postcode-cards{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #70C1B3 ;
+}
+
+.each-card-div-style {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  border: 0.2px ;
+  background-color: #F3FFBD;
+  padding: 8px;
+  margin: 1px;
+  border-radius: 1vh;
+  width: 10vh;
+}
+
+.each-card-delete-button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.each-card-delete-X {
+  color:#FF1654;
+  font-size: 14px;
+  font-weight:400;
+}
+
+
+.postcode-entry-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+  margin: 1px;
+  width: 100%;
+}
+
+.form22 {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  justify-content: space-between;
+}
+
+.postcode-text-input-field {
+  flex-grow: 10;
+  padding: 6px;
+  margin: 10px;
+  background-color: #F3FFBD;
+  width: 100%;
+  font-size: 13px;
+}
+.postcode-add-button {
+  /* border:0.1em; */
+  /* border-radius: 1vh; */
+  /* padding: 8px; */
+  /* margin: 1px; */
+  display: flex;
+  font-size: 13px;
+  width: 30%;
+  align-self: center;
+  display:inline-block;
+  padding: 0.5em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+.travel-mode-and-place-type-selector {
+  display: flex;
+  justify-content: center;
+  border: 10px
+}
+
+.travel-mode-main {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.travel-mode-public-transport {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  margin: 8px;
+}
+
+.travel-mode-car {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 8px;
+}
+
+.place-type-dropdown{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10 px;
+  margin: 8px;
+}
+
+.buttons-add-and-magic {
+  display: flex;
+  align-items: center;
+}
+
+.button-add-formatting {
+  border:0.1em solid red;
+}
+
+.button-magic-formatting {
+  /* border:0.1em solid green; */
+  display: flex;
+  font-size: 14px;
+  display:inline-block;
+  padding:1.3em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
+}
+/* Searching Page */
+.searching-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
+}
+
+.searching-showmessage {
+  display: flex;
+  align-items: baseline;
+}
+
+.blink_text {
+
+  animation:1s blinker linear infinite;
+  -webkit-animation:1s blinker linear infinite;
+  -moz-animation:1s blinker linear infinite;
+  }
+
+  @-moz-keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+  @-webkit-keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+  @keyframes blinker {  
+   0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+   }
+
+.check-for-message {
+  font-size: 20px;
+}
+
+.button-postsearch-trigger {
+  display: flex;
+  font-size: 14px;
+  display:inline-block;
+  padding:1.8em 1.8em;
+  margin:10 0.3em 0.3em 10;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#FF1654;
+  text-align:center;
+  transition: all 0.2s;
+  width: 80%
+}
+
+/* PostSearch Page */
+
+.postsearch-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #70C1B3 ;
+}
+.key-data-comm-group {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* border:0.1em solid blue; */
+  padding:0em 0em;
+  margin:0 0em 0em 0;
+  width: 100% ;
+}
+
+.key-data-each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border:0.0em solid #F3FFBD;
+  text-align:center;
+  /* padding:0.1em 0.1em; */
+  /* margin:1 1em 1em 1; */
+  width:40%;
+}
+
+.key-data-each h3 {
+  padding:0.1em 0.0em;
+  margin:0.5em 0em 0em 0;
+}
+
+.key-data-each h2 {
+  /* padding:0.1em 0.0em; */
+  margin:0.5em 0em 1em 0;
+}
+
+.place-cards-all {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.place-card-each {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  outline: 0.1rem solid #B2DBBF;
+  border-radius: 25px;
+  width: 45%;
+}
+
+.place-card-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding:2em 2em; */
+  /* margin:0 0em 0em 0; */
+  /* outline: 0.1rem solid khaki; */
+  min-height: 11vh;
+  max-height: 11vh;
+}
+
+.place-card-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 6vh;
+  max-height: 6vh;
+  font-weight:400;
+  font-size: 11px;
+}
+
+.place-card-formatted_address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 7vh;
+  max-height: 7vh;
+  text-align:center;
+}
+
+.place-card-rating{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 5vh;
+  text-align:center;
+}
+
+.place-card-user_ratings_total{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 3vh;
+  max-height: 3vh;
+  text-align:center;
+}
+
+.place-card-international_phone_number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* outline: 0.1rem solid khaki; */
+  min-height: 4vh;
+  max-height: 4vh;
+  text-align:center; 
+}
+
+.place-card-select-checkbox{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 5vh;
+  text-align:center; 
+}
+
+.whatsapp-button {
+  /* border:0.1em solid red; */
+  background-color: #09cd18;
+  color: #fff;
+  padding: 10px;
+  font-family: "sans-serif" ;
+  font-size: 14px;
+  font-weight:800;
+}
+
+.restart-process {
+  display: flex;
+  font-size: 13px;
+  padding:1em 1em;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  color:#FFFFFF;
+  text-align:center;
+}
+
+.google-maps-button-div{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 8vh;
+  text-align:center; 
+}
+.google-maps-button{
+  display: flex;
+  font-size: 9px;
+  width: 90%;
+  align-self: center;
+  display:inline-block;
+  padding: 0.5em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#247BA0;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+.city-mapper-button-div{
+  /* outline: 0.1rem solid khaki; */
+  min-height: 5vh;
+  max-height: 6vh;
+  text-align:center; 
+}
+.city-mapper-button{
+  display: flex;
+  font-size: 9px;
+  width: 90%;
+  align-self: center;
+  display:inline-block;
+  padding: 0.5em 1.2em;
+  margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:800;
+  color:#FFFFFF;
+  background-color:#247BA0;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+
+.textarea-to-be-hidden {
+  /* visibility: hidden; */
+  /* display: none; */
+}
+
+
+/* =================================== */
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
