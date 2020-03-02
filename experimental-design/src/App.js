@@ -156,7 +156,6 @@ class App extends React.Component {
                 presearchPlaceType={this.state.presearchPlaceType}
                 searchingItemsToPresent={this.state.searchingItemsToPresent}
                 searchingMidPointPostcode={this.state.searchingMidPointPostcode}
-
               />
             }} />
           </div>
@@ -169,7 +168,7 @@ class App extends React.Component {
             }} />
           </div>
           
-          <div>
+          <div className="notavailable-container wrapper">
             <Route path="/notavailable" render={routerProps=> {
             return this.state.notAvailable && <NotAvailablePage {...routerProps} />
           }} />

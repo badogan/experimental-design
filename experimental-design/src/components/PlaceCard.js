@@ -64,7 +64,10 @@ export default class PlaceCard extends React.Component {
           <br />
           <div className="google-maps-button-div">
             {selected && (
-              <button className="google-maps-button" onClick={() => window.open(url, "_blank")}>
+              <button
+                className="google-maps-button"
+                onClick={() => window.open(url, "_blank")}
+              >
                 Visit this place on Google Maps
               </button>
             )}
@@ -76,10 +79,16 @@ export default class PlaceCard extends React.Component {
           <br />
           <div className="city-mapper-button-div">
             {selected && (
-              <button className="city-mapper-button"
+              <button
+                className="city-mapper-button"
                 onClick={() =>
                   window.open(
-                    Helper.CityMapper({ longitude, latitude }),
+                    Helper.CityMapper({
+                      longitude,
+                      latitude,
+                      name,
+                      formatted_address
+                    }),
                     "_blank"
                   )
                 }

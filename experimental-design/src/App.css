@@ -53,6 +53,16 @@ body {
   height: inherit;
 }
 
+/* Notavailable Page */
+.notavailable-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  background-color: #70C1B3 ;
+}
+
 /* Presearch Page */
 .presearch-container {
   display: flex;
