@@ -73,7 +73,7 @@ const extractAddress = address_components => {
 };
 
 const WhatsApp = currentState => {
-  let domainToForward = "https://79339156.ngrok.io";
+  let domainToForward = "https://ebbad958.ngrok.io";
   let urlPrep = `whatsapp://send?text=${domainToForward}/results?`;
   urlPrep += `duration=${currentState.duration}:`;
   urlPrep += `postcode=${currentState.postcode}:`;

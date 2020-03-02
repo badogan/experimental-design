@@ -5,10 +5,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const scriptTag = document.createElement('script')
-scriptTag.type = "text/javascript"
-scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_KEY}&libraries=places`
-document.head.append(scriptTag)
+// const scriptTag = document.createElement('script')
+// scriptTag.type = "text/javascript"
+// scriptTag.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_KEY}&libraries=places`
+// document.head.append(scriptTag)
 
 ReactDOM.render(<Router>
     <Route path="/" render={props => <App {...props} />} />
