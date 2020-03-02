@@ -38,8 +38,6 @@ class App extends React.Component {
         this.handleNotAvailable();
       }
     });
-    //
-    //
     const queryObject = Helper.presentationDetailsFromQuery(
       this.props.location.search
     );
