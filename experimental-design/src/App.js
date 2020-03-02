@@ -97,7 +97,7 @@ class App extends React.Component {
     url += `postcodes=${this.state.presearchEnteredPostcodes.join(',')}`
     this.props.history.push(url)
   }
-  //// END: Searching Related
+  //// END: Searching Related finishes here
 
   //// START: preSearch Related
   addPostcode = (postcode) => {
