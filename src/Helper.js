@@ -307,7 +307,7 @@ const spaceFillerArray = n => {
 const contentForEncouragingText = () => [
   "Meet with friends!",
   "In the middle",
-  "In carefully selected places",
+  "Carefully selected places",
   "Start here..."
 ];
 

@@ -56,7 +56,7 @@ export default class PlaceCard extends React.Component {
             <h5>Rating: {rating}</h5>
           </div>
           <div className="place-card-user_ratings_total">
-            <h5>Number of Users Rated: {user_ratings_total} </h5>
+            <h5>Users Rated: {user_ratings_total} </h5>
           </div>
           <div className="place-card-international_phone_number">
             <h5>{international_phone_number}</h5>

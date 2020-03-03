@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-size: 62.5%;
+  font-size: 70%;
   /* font-family: "Montserrat", "sans-serif"; */
   font-family: 'Source Code Pro',  "sans-serif";
 }
@@ -31,7 +31,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-
 }
 
 /* Header */
@@ -240,9 +239,10 @@ body {
 .searching-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  align-content: center;
+  align-content: space-between;
+  font-size: 15px;
   /* border: 1px solid black; */
   background-color: #70C1B3 ;
 }
@@ -250,10 +250,11 @@ body {
 .searching-showmessage {
   display: flex;
   align-items: baseline;
+  margin: 0px;
 }
 
 .blink_text {
-
+  font-size: 10px;
   animation:1s blinker linear infinite;
   -webkit-animation:1s blinker linear infinite;
   -moz-animation:1s blinker linear infinite;
@@ -278,7 +279,8 @@ body {
    }
 
 .check-for-message {
-  font-size: 20px;
+  font-size: 30px;
+  margin: 3px;
 }
 
 .button-postsearch-trigger {
@@ -375,7 +377,7 @@ body {
   min-height: 6vh;
   max-height: 6vh;
   font-weight:400;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .place-card-formatted_address {
@@ -386,6 +388,7 @@ body {
   min-height: 7vh;
   max-height: 7vh;
   text-align:center;
+  font-size: 13px;
 }
 
 .place-card-rating{
@@ -396,6 +399,7 @@ body {
   min-height: 5vh;
   max-height: 5vh;
   text-align:center;
+  font-size: 14px;
 }
 
 .place-card-user_ratings_total{
@@ -406,6 +410,7 @@ body {
   min-height: 3vh;
   max-height: 3vh;
   text-align:center;
+  font-size: 13px;
 }
 
 .place-card-international_phone_number{
@@ -413,9 +418,10 @@ body {
   align-items: center;
   justify-content: center;
   /* outline: 0.1rem solid khaki; */
-  min-height: 4vh;
-  max-height: 4vh;
+  min-height: 5vh;
+  max-height: 5vh;
   text-align:center; 
+  font-size: 13px;
 }
 
 .place-card-select-checkbox{
