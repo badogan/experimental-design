@@ -30,7 +30,7 @@ body {
   /* text-align: center; */
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 /* Header */
@@ -40,6 +40,7 @@ body {
   height: 10vh;
   border: 1px solid black;
   background-color: #247BA0;
+  /* height: 100%; */
 }
 
 .logo {
@@ -287,8 +288,8 @@ body {
   display: flex;
   font-size: 14px;
   display:inline-block;
-  padding:1.8em 1.8em;
-  margin:10 0.3em 0.3em 10;
+  padding:1.5em 1.5em;
+  margin:2.5em 0.3em 0.3em 0em;
   border-radius:2em;
   box-sizing: border-box;
   text-decoration:none;
@@ -373,9 +374,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align:center;
   /* outline: 0.1rem solid khaki; */
-  min-height: 6vh;
-  max-height: 6vh;
+  min-height: 7vh;
+  max-height: 7vh;
   font-weight:400;
   font-size: 14px;
 }
