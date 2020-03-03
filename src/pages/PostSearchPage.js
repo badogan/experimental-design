@@ -92,9 +92,6 @@ export default class PostSearchPage extends React.Component {
                     <br/>
                     <RestartProcess path={this.restartPath()}/>
                 </div>
-                <div className="spacefiller">
-                    {Helper.spaceFillerArray(40).map((k,i) => <div key={i}> <br /></div>)}
-                </div>
             </React.Fragment>
         )
     }

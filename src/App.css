@@ -63,6 +63,7 @@ body {
   align-items: center;
   /* border: 1px solid black; */
   background-color: #70C1B3 ;
+  height: 100%;
 }
 
 /* Presearch Page */
@@ -311,6 +312,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #70C1B3 ;
+  height: 100%;
 }
 .key-data-comm-group {
   display:flex;

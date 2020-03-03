@@ -163,14 +163,6 @@ export default class SearchingPage extends React.Component {
         {triggerPostSearch && (
           <PostSearchTrigger updateConstructedURL={updateConstructedURL} />
         )}
-        {/* <div className="spacefiller">
-          {Helper.spaceFillerArray(40).map((k, i) => (
-            <div key={i}>
-              {" "}
-              <br />
-            </div>
-          ))}
-        </div> */}
       </React.Fragment>
     );
   }

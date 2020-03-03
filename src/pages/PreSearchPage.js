@@ -41,9 +41,6 @@ export default class PreSearchPage extends React.Component {
                         ? <SearchInitiation initiateSearching={initiateSearching} />
                         : null}
                 </div>
-                {/* <div className="spacefiller">
-                    {Helper.spaceFillerArray(40).map((k,i) => <div key={i}> <br /></div>)}
-                </div> */}
             </React.Fragment>
         )
     }
