@@ -32,8 +32,8 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    API.getConfigFromServerless().then(obj => {
-      if (obj.panic.status) {
+    API.getConfigFromServerless().then(panic => {
+      if (panic.status) {
         this.handleNotAvailable();
       }
     });
