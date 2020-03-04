@@ -116,7 +116,6 @@ export default class SearchingPage extends React.Component {
       })
       .then(() => {
         this.setState({ triggerPostSearch: true });
-        // this.props.updateConstructedURL();
       })
       .catch(error => {
           console.error('unmounted')
