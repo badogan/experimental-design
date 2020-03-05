@@ -1,5 +1,6 @@
 import React from 'react'
 import Helper from '../Helper'
+import API from '../API'
 import KeyDataComm from '../components/KeyDataComm'
 import ApproxPostcodeComm from '../components/ApproxPostcodeComm'
 import PlaceCard from '../components/PlaceCard'
