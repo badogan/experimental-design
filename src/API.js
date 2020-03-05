@@ -23,7 +23,8 @@ const getPlacesCoreCode = (requestObject) => {
 }
 
 const postToBackend = (thisProps) => {
-  let url = 'http://localhost:3000/history'
+  // let url = 'http://localhost:3000/history'
+  let url = 'https://fullstack-test-backend-basri.herokuapp.com/history'
   let dataObject = {
     history: {
       search: thisProps.search,

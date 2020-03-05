@@ -50,7 +50,7 @@ export default class PostSearchPage extends React.Component {
                 })
             }
         })
-        // API.postToBackend(this.props.location) && false
+        true && API.postToBackend(this.props.location)
     }
 
     presentPlacesAndFurtherOptions = () => {

@@ -16,8 +16,8 @@ export default class SearchingPage extends React.Component {
   };
 
   componentDidMount() {
-    // API.postToBackend(this.props.location)
     true && this.doSearchAndHandoverToPostSearch();
+    true && API.postToBackend(this.props.location)
   }
 
   postcodesFromQuery = query => {
