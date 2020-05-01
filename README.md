@@ -29,6 +29,9 @@ npm start
 You will need to spin up the backend to this project which can also be found in my GitHub account. Please note that backend is not compulsory for the app to work.
 
 ## STEP-1: Postcodes Entry & Planning Options Chosen
+
+App will add random postcode if you hit "Carefully selected places" :)
+
 <img src="./src/assets/MeetInTheMiddle-1.png" alt="Postcodes Entry & Planning Options Chosen" height="500" width="450">
 
 ## STEP-2: Planning Steps & Next Steps Communicated To User
